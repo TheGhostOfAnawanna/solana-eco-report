@@ -1,49 +1,49 @@
 {
-  "generated_utc": "2026-08-25T17:38:54.262490+00:00",
+  "generated_utc": "2026-08-25T18:18:13.710257+00:00",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5648938557.5060005,
+      "solana_tvl_usd": 5634312505.735169,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 49325462872.78798
+          "tvl_usd": 49310702216.5956
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5648938557.5060005
+          "tvl_usd": 5634312505.735169
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5567297503.89617
+          "tvl_usd": 5569264679.999919
         },
         {
           "chain": "Base",
-          "tvl_usd": 5518579853.7983465
+          "tvl_usd": 5520942606.917691
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5197173952.059213
+          "tvl_usd": 5202365979.66949
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4136164549.6078787
+          "tvl_usd": 4139197136.2449155
         },
         {
           "chain": "Provenance",
-          "tvl_usd": 1840628164.2898812
+          "tvl_usd": 1847011802.381713
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1575046333.2826302
+          "tvl_usd": 1575670669.5021186
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1429330197.929006
+          "tvl_usd": 1433401028.7474475
         },
         {
           "chain": "Monad",
-          "tvl_usd": 935120052.7552307
+          "tvl_usd": 934703198.6489736
         }
       ]
     },
@@ -52,12 +52,12 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1479023931.5213027,
+          "tvl_usd": 1474779904.0627692,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1185931033.0774825,
+          "tvl_usd": 1184362462.2902799,
           "category": "Lending"
         },
         {
@@ -97,7 +97,7 @@
         },
         {
           "name": "xStocks",
-          "tvl_usd": 428180440.7740228,
+          "tvl_usd": 430287726.16902936,
           "category": "RWA"
         },
         {
@@ -117,7 +117,7 @@
         },
         {
           "name": "Solstice",
-          "tvl_usd": 303009548.5705832,
+          "tvl_usd": 303017300.65374064,
           "category": "Basis Trading"
         },
         {
@@ -128,12 +128,19 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 97.87,
-      "market_cap_usd": 57107632005,
+      "price_usd": 98.49,
+      "market_cap_usd": 57456059215,
       "rank": 7,
-      "change_24h_pct": 2.86891,
-      "change_7d_pct": 27.1,
-      "change_30d_pct": 30.1
+      "change_24h_pct": 2.48444,
+      "change_7d_pct": 27.6,
+      "change_30d_pct": 30.2
+    },
+    "solana_rpc": {
+      "epoch": 1022,
+      "epoch_progress_pct": 42.52,
+      "total_transactions": 541775187038,
+      "tps_total": 4536.0,
+      "tps_non_vote": 2674.0
     }
   }
 }

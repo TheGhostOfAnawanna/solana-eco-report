@@ -5,11 +5,14 @@
 // LIVE client-side: auto-updates on every page load. Sources: api.llama.fi + api.coingecko.com (free, CORS-enabled, no keys).
 const fmt=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
 const j=u=>fetch(u,{headers:{accept:'application/json'}}).then(r=>r.json());
+const rpc=(m,p)=>fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(r=>r.json()).then(x=>x.result);
 Promise.all([
   j('https://api.llama.fi/v2/chains'),
   j('https://api.llama.fi/protocols'),
-  j('https://api.coingecko.com/api/v3/coins/markets?ids=solana&vs_currency=usd&price_change_percentage=24h,7d')
-]).then(([chains,protos,cg])=>{
+  j('https://api.coingecko.com/api/v3/coins/markets?ids=solana&vs_currency=usd&price_change_percentage=24h,7d'),
+  rpc('getEpochInfo'),
+  rpc('getRecentPerformanceSamples',[8])
+]).then(([chains,protos,cg,epoch,samples])=>{
   document.getElementById('meta').textContent='Live · '+new Date().toUTCString()+' · sources: DeFiLlama + CoinGecko';
   const sol=cg[0];
   const top=chains.filter(c=>c.tvl>0).sort((a,b)=>b.tvl-a.tvl);
@@ -23,6 +26,12 @@ Promise.all([
   top.slice(0,10).forEach((c,i)=>{h+=`<tr><td>${i+1}</td><td>${c.name}</td><td class=num>${fmt(c.tvl)}</td></tr>`});
   h+='</table><table><tr><th colspan=4>Top protocols on Solana (per-chain TVL)</th></tr>';
   sp.forEach((p,i)=>{h+=`<tr><td>${i+1}</td><td>${p.name}</td><td>${p.category??''}</td><td class=num>${fmt(perChain(p))}</td></tr>`});
-  h+='</table>';document.getElementById('out').innerHTML=h;
+  h+='</table>';
+  const secs=samples.reduce((a,s)=>a+s.samplePeriodSecs,0);
+  const tps=Math.round(samples.reduce((a,s)=>a+s.numTransactions,0)/secs);
+  const nvtps=Math.round(samples.reduce((a,s)=>a+s.numNonVoteTransactions,0)/secs);
+  const epPct=(100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(2);
+  h+=`<p class=num>Epoch <b>${epoch.epoch}</b> (${epPct}% complete) · <b>${tps.toLocaleString()}</b> tx/s total · ${nvtps.toLocaleString()} tx/s non-vote · ${(epoch.transactionCount/1e9).toFixed(1)}B lifetime txns</p>`;
+  document.getElementById('out').innerHTML=h;
 }).catch(e=>document.getElementById('out').textContent='Error: '+e);
 </script></body></html>

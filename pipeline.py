@@ -53,6 +53,28 @@ def main():
         }
         time.sleep(2)
 
+    # 4. Solana public RPC: network health (epoch, TPS) — no key required
+    def rpc(method, params=None):
+        body = json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params or []}).encode()
+        req = urllib.request.Request("https://api.mainnet-beta.solana.com", data=body,
+                                     headers={"Content-Type": "application/json", "User-Agent": "solana-eco-report/0.1"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read())["result"]
+
+    epoch = rpc("getEpochInfo")
+    samples = rpc("getRecentPerformanceSamples", [8])
+    n_tx = sum(s["numTransactions"] for s in samples)
+    nv_tx = sum(s["numNonVoteTransactions"] for s in samples)
+    secs = sum(s["samplePeriodSecs"] for s in samples)
+    snap["sources"]['solana_rpc'] = {
+        "epoch": epoch["epoch"],
+        "epoch_progress_pct": round(100 * epoch["slotIndex"] / epoch["slotsInEpoch"], 2),
+        "total_transactions": epoch["transactionCount"],
+        "tps_total": round(n_tx / secs, 0),
+        "tps_non_vote": round(nv_tx / secs, 0),
+    }
+    time.sleep(2)
+
     with open(os.path.join(OUT_DIR, "snapshot.json"), "w") as f:
         json.dump(snap, f, indent=2)
 
@@ -77,7 +99,12 @@ def main():
               "| # | Protocol | Category | TVL |", "|---|----------|----------|-----|"]
     for i, p in enumerate(d["defillama_protocols"]["top15"], 1):
         lines.append(f"| {i} | {p['name']} | {p['category']} | ${(p['tvl_usd'] or 0):,.0f} |")
-    lines += ["", "---", "*Data: DeFiLlama public API + CoinGecko free tier. Pipeline refreshes via GitHub Actions cron.*"]
+    net = d['solana_rpc']
+    lines += ["", "## Network health", "",
+              f"- **Epoch:** {net['epoch']} ({net['epoch_progress_pct']}% complete)",
+              f"- **Throughput:** {net['tps_total']:,.0f} tx/s total · {net['tps_non_vote']:,.0f} tx/s non-vote",
+              f"- **Lifetime transactions:** {net['total_transactions']:,}",
+              "", "---", "*Data: DeFiLlama public API + CoinGecko free tier + Solana public RPC. Pipeline refreshes via GitHub Actions cron.*"]
 
     with open(os.path.join(OUT_DIR, "report.md"), "w") as f:
         f.write("\n".join(lines))

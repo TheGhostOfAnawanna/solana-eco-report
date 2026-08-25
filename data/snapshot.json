@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-25T21:17:01.344198+00:00",
+  "generated_utc": "2026-08-25T22:35:16.385512+00:00",
   "sources": {
     "defillama_chains": {
       "solana_tvl_usd": 5630836187.964966,
@@ -52,32 +52,32 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1472428105.3917334,
+          "tvl_usd": 1459360567.9567335,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1187184637.9469028,
+          "tvl_usd": 1175518249.7360654,
           "category": "Lending"
         },
         {
           "name": "Raydium AMM",
-          "tvl_usd": 1077099306.6610677,
+          "tvl_usd": 1058653670.9230243,
           "category": "Dexs"
         },
         {
           "name": "Jupiter Lend",
-          "tvl_usd": 1061640510.1044788,
+          "tvl_usd": 1049520673.4483142,
           "category": "Lending"
         },
         {
           "name": "Binance Staked SOL",
-          "tvl_usd": 1001637263.946287,
+          "tvl_usd": 992389458.3762779,
           "category": "Liquid Staking"
         },
         {
           "name": "Jito Liquid Staking",
-          "tvl_usd": 980150294.9630339,
+          "tvl_usd": 971499849.5333914,
           "category": "Liquid Staking"
         },
         {
@@ -87,27 +87,27 @@
         },
         {
           "name": "Jupiter Perpetual Exchange",
-          "tvl_usd": 752150055.3623086,
+          "tvl_usd": 747690035.6238202,
           "category": "Derivatives"
         },
         {
           "name": "Jupiter Staked SOL",
-          "tvl_usd": 505333090.0046717,
+          "tvl_usd": 500661070.4347006,
           "category": "Liquid Staking"
         },
         {
           "name": "xStocks",
-          "tvl_usd": 431324597.1372802,
+          "tvl_usd": 429395541.908121,
           "category": "RWA"
         },
         {
           "name": "Marinade Native",
-          "tvl_usd": 382251733.25964266,
+          "tvl_usd": 378625264.1680165,
           "category": "Staking Pool"
         },
         {
           "name": "Sentora",
-          "tvl_usd": 363056725.4678748,
+          "tvl_usd": 363048895.27087194,
           "category": "Risk Curators"
         },
         {
@@ -117,30 +117,30 @@
         },
         {
           "name": "Solstice",
-          "tvl_usd": 303022156.1494072,
+          "tvl_usd": 303058305.0006302,
           "category": "Basis Trading"
         },
         {
           "name": "OnRe",
-          "tvl_usd": 276947691.6597039,
+          "tvl_usd": 277005146.7362335,
           "category": "RWA"
         }
       ]
     },
     "coingecko_sol": {
-      "price_usd": 96.48,
-      "market_cap_usd": 56279438408,
+      "price_usd": 97.47,
+      "market_cap_usd": 56852981247,
       "rank": 7,
-      "change_24h_pct": -0.36155,
-      "change_7d_pct": 25.5,
-      "change_30d_pct": 28.4
+      "change_24h_pct": -0.59809,
+      "change_7d_pct": 26.4,
+      "change_30d_pct": 29.1
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 49.32,
-      "total_transactions": 541821986900,
-      "tps_total": 4766.0,
-      "tps_non_vote": 2904.0
+      "epoch_progress_pct": 52.29,
+      "total_transactions": 541841339513,
+      "tps_total": 4302.0,
+      "tps_non_vote": 2433.0
     },
     "defillama_history": {
       "days": [
@@ -502,15 +502,15 @@
         ],
         [
           1787616000,
-          5630808298
+          5630806492
         ]
       ],
       "tvl_90d_ago_usd": 5308496859,
-      "tvl_now_usd": 5630808298,
+      "tvl_now_usd": 5630806492,
       "change_90d_pct": 6.1
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16239284331
+      "solana_usd_pegged_stables": 16231722627
     }
   }
 }

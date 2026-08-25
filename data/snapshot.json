@@ -1,49 +1,49 @@
 {
-  "generated_utc": "2026-08-25T22:35:16.385512+00:00",
+  "generated_utc": "2026-08-25T22:55:15.756856+00:00",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5630836187.964966,
+      "solana_tvl_usd": 5578629605.95831,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 49235921828.917885
+          "tvl_usd": 48924207169.71674
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5630836187.964966
+          "tvl_usd": 5578629605.95831
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5563623148.616679
+          "tvl_usd": 5532657206.742846
         },
         {
           "chain": "Base",
-          "tvl_usd": 5501099933.081518
+          "tvl_usd": 5460350457.652281
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5182769496.1475
+          "tvl_usd": 5162015273.31811
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4127631621.7971735
+          "tvl_usd": 4091240880.400223
         },
         {
           "chain": "Provenance",
-          "tvl_usd": 1846657297.4728603
+          "tvl_usd": 1845439331.6965287
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1596248754.0791507
+          "tvl_usd": 1542122922.1591873
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1425910112.5124354
+          "tvl_usd": 1415890443.1999784
         },
         {
           "chain": "Monad",
-          "tvl_usd": 936390906.1577907
+          "tvl_usd": 934087863.0448835
         }
       ]
     },
@@ -128,19 +128,19 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 97.47,
-      "market_cap_usd": 56852981247,
+      "price_usd": 97.29,
+      "market_cap_usd": 56761490566,
       "rank": 7,
-      "change_24h_pct": -0.59809,
+      "change_24h_pct": -0.26426,
       "change_7d_pct": 26.4,
       "change_30d_pct": 29.1
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 52.29,
-      "total_transactions": 541841339513,
-      "tps_total": 4302.0,
-      "tps_non_vote": 2433.0
+      "epoch_progress_pct": 53.05,
+      "total_transactions": 541846450244,
+      "tps_total": 4294.0,
+      "tps_non_vote": 2436.0
     },
     "defillama_history": {
       "days": [
@@ -502,12 +502,12 @@
         ],
         [
           1787616000,
-          5630806492
+          5578601715
         ]
       ],
       "tvl_90d_ago_usd": 5308496859,
-      "tvl_now_usd": 5630806492,
-      "change_90d_pct": 6.1
+      "tvl_now_usd": 5578601715,
+      "change_90d_pct": 5.1
     },
     "defillama_stables": {
       "solana_usd_pegged_stables": 16231722627

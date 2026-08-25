@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-25T19:20:03.978835+00:00",
+  "generated_utc": "2026-08-25T19:36:11.870932+00:00",
   "sources": {
     "defillama_chains": {
       "solana_tvl_usd": 5636168475.134215,
@@ -128,19 +128,19 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 98.48,
-      "market_cap_usd": 57453367000,
+      "price_usd": 97.73,
+      "market_cap_usd": 56984208871,
       "rank": 7,
-      "change_24h_pct": 3.01955,
+      "change_24h_pct": 1.72342,
       "change_7d_pct": 28.1,
       "change_30d_pct": 30.8
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 44.87,
-      "total_transactions": 541790841728,
-      "tps_total": 3915.0,
-      "tps_non_vote": 2050.0
+      "epoch_progress_pct": 45.49,
+      "total_transactions": 541794913736,
+      "tps_total": 4190.0,
+      "tps_non_vote": 2314.0
     },
     "defillama_history": {
       "days": [
@@ -502,11 +502,11 @@
         ],
         [
           1787616000,
-          5636140586
+          5635143121
         ]
       ],
       "tvl_90d_ago_usd": 5308496859,
-      "tvl_now_usd": 5636140586,
+      "tvl_now_usd": 5635143121,
       "change_90d_pct": 6.2
     },
     "defillama_stables": {

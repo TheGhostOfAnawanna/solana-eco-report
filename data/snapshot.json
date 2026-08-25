@@ -1,0 +1,139 @@
+{
+  "generated_utc": "2026-08-25T17:38:54.262490+00:00",
+  "sources": {
+    "defillama_chains": {
+      "solana_tvl_usd": 5648938557.5060005,
+      "solana_rank": 2,
+      "top10_by_tvl": [
+        {
+          "chain": "Ethereum",
+          "tvl_usd": 49325462872.78798
+        },
+        {
+          "chain": "Solana",
+          "tvl_usd": 5648938557.5060005
+        },
+        {
+          "chain": "BSC",
+          "tvl_usd": 5567297503.89617
+        },
+        {
+          "chain": "Base",
+          "tvl_usd": 5518579853.7983465
+        },
+        {
+          "chain": "Tron",
+          "tvl_usd": 5197173952.059213
+        },
+        {
+          "chain": "Bitcoin",
+          "tvl_usd": 4136164549.6078787
+        },
+        {
+          "chain": "Provenance",
+          "tvl_usd": 1840628164.2898812
+        },
+        {
+          "chain": "Hyperliquid L1",
+          "tvl_usd": 1575046333.2826302
+        },
+        {
+          "chain": "Arbitrum",
+          "tvl_usd": 1429330197.929006
+        },
+        {
+          "chain": "Monad",
+          "tvl_usd": 935120052.7552307
+        }
+      ]
+    },
+    "defillama_protocols": {
+      "solana_protocol_count": 330,
+      "top15": [
+        {
+          "name": "Sanctum Validator LSTs",
+          "tvl_usd": 1479023931.5213027,
+          "category": "Liquid Staking"
+        },
+        {
+          "name": "Kamino Lend",
+          "tvl_usd": 1185931033.0774825,
+          "category": "Lending"
+        },
+        {
+          "name": "Raydium AMM",
+          "tvl_usd": 1077099306.6610677,
+          "category": "Dexs"
+        },
+        {
+          "name": "Jupiter Lend",
+          "tvl_usd": 1060318378.616509,
+          "category": "Lending"
+        },
+        {
+          "name": "Binance Staked SOL",
+          "tvl_usd": 1006711996.3165078,
+          "category": "Liquid Staking"
+        },
+        {
+          "name": "Jito Liquid Staking",
+          "tvl_usd": 984465746.6386757,
+          "category": "Liquid Staking"
+        },
+        {
+          "name": "BlackRock BUIDL",
+          "tvl_usd": 828833290.6799998,
+          "category": "RWA"
+        },
+        {
+          "name": "Jupiter Perpetual Exchange",
+          "tvl_usd": 756444635.3527554,
+          "category": "Derivatives"
+        },
+        {
+          "name": "Jupiter Staked SOL",
+          "tvl_usd": 507893456.122917,
+          "category": "Liquid Staking"
+        },
+        {
+          "name": "xStocks",
+          "tvl_usd": 428180440.7740228,
+          "category": "RWA"
+        },
+        {
+          "name": "Marinade Native",
+          "tvl_usd": 384388697.49764544,
+          "category": "Staking Pool"
+        },
+        {
+          "name": "Sentora",
+          "tvl_usd": 363103578.1564133,
+          "category": "Risk Curators"
+        },
+        {
+          "name": "PumpSwap",
+          "tvl_usd": 332863173.7411061,
+          "category": "Dexs"
+        },
+        {
+          "name": "Solstice",
+          "tvl_usd": 303009548.5705832,
+          "category": "Basis Trading"
+        },
+        {
+          "name": "OnRe",
+          "tvl_usd": 276505230.76352143,
+          "category": "RWA"
+        }
+      ]
+    },
+    "coingecko_sol": {
+      "price_usd": 97.87,
+      "market_cap_usd": 57107632005,
+      "rank": 7,
+      "change_24h_pct": 2.86891,
+      "change_7d_pct": 27.1,
+      "change_30d_pct": 30.1
+    }
+  }
+}

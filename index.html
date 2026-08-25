@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Solana Ecosystem Dashboard</title>
+<style>body{font-family:system-ui;background:#0b1120;color:#e2e8f0;margin:2rem}h1{color:#9945FF}table{border-collapse:collapse;margin:1rem 0}td,th{padding:.4rem .8rem;border-bottom:1px solid #334155;text-align:left}.num{font-variant-numeric:tabular-nums}</style></head>
+<body><h1>Solana Ecosystem Dashboard</h1><p id="meta"></p><div id="out">Loading…</div>
+<script>
+const fmt=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+fetch('data/snapshot.json').then(r=>r.json()).then(d=>{
+  const s=d.sources;
+  document.getElementById('meta').textContent='Snapshot '+d.generated_utc+' — DeFiLlama + CoinGecko free APIs, auto-refreshed every 6h';
+  const sol=s.coingecko_sol;
+  let h=`<p class="num">SOL <b>${fmt(sol.price_usd)}</b> · mcap ${fmt(sol.market_cap_usd)} (#${sol.rank}) · chain TVL <b>${fmt(s.defillama_chains.solana_tvl_usd)}</b> (rank #${s.defillama_chains.solana_rank})</p>`;
+  h+='<table><tr><th colspan=3>Top chains by TVL</th></tr>';
+  s.defillama_chains.top10_by_tvl.forEach((c,i)=>{h+=`<tr><td>${i+1}</td><td>${c.chain}</td><td class=num>${fmt(c.tvl_usd)}</td></tr>`});
+  h+='</table><table><tr><th colspan=4>Top protocols on Solana (per-chain TVL)</th></tr>';
+  s.defillama_protocols.top15.forEach((p,i)=>{h+=`<tr><td>${i+1}</td><td>${p.name}</td><td>${p.category??''}</td><td class=num>${fmt(p.tvl_usd)}</td></tr>`});
+  h+='</table>';document.getElementById('out').innerHTML=h;
+}).catch(e=>document.getElementById('out').textContent='Error: '+e);
+</script></body></html>

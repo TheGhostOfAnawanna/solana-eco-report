@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-25T23:16:50.032608+00:00",
+  "generated_utc": "2026-08-25T23:17:10.116764+00:00",
   "sources": {
     "defillama_chains": {
       "solana_tvl_usd": 5578629605.95831,
@@ -137,10 +137,10 @@
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 53.87,
-      "total_transactions": 541851762931,
-      "tps_total": 4096.0,
-      "tps_non_vote": 2250.0
+      "epoch_progress_pct": 53.88,
+      "total_transactions": 541851837123,
+      "tps_total": 4111.0,
+      "tps_non_vote": 2267.0
     },
     "defillama_history": {
       "days": [
@@ -511,6 +511,14 @@
     },
     "defillama_stables": {
       "solana_usd_pegged_stables": 16308415827
+    },
+    "self_observed_trend": {
+      "since": "2026-08-25T23:16Z",
+      "snapshots_tracked": 2,
+      "tvl_then_usd": 5578629606,
+      "tvl_change_pct": 0.0,
+      "price_then_usd": 97.14,
+      "price_change_pct": 0.0
     }
   }
 }

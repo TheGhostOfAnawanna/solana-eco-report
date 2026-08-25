@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-25T22:55:15.756856+00:00",
+  "generated_utc": "2026-08-25T23:16:50.032608+00:00",
   "sources": {
     "defillama_chains": {
       "solana_tvl_usd": 5578629605.95831,
@@ -97,12 +97,12 @@
         },
         {
           "name": "xStocks",
-          "tvl_usd": 429395541.908121,
+          "tvl_usd": 430541653.01875836,
           "category": "RWA"
         },
         {
           "name": "Marinade Native",
-          "tvl_usd": 378625264.1680165,
+          "tvl_usd": 381237195.7482189,
           "category": "Staking Pool"
         },
         {
@@ -128,19 +128,19 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 97.29,
-      "market_cap_usd": 56761490566,
+      "price_usd": 97.14,
+      "market_cap_usd": 56694127170,
       "rank": 7,
-      "change_24h_pct": -0.26426,
-      "change_7d_pct": 26.4,
-      "change_30d_pct": 29.1
+      "change_24h_pct": -0.46478,
+      "change_7d_pct": 26.5,
+      "change_30d_pct": 28.0
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 53.05,
-      "total_transactions": 541846450244,
-      "tps_total": 4294.0,
-      "tps_non_vote": 2436.0
+      "epoch_progress_pct": 53.87,
+      "total_transactions": 541851762931,
+      "tps_total": 4096.0,
+      "tps_non_vote": 2250.0
     },
     "defillama_history": {
       "days": [
@@ -510,7 +510,7 @@
       "change_90d_pct": 5.1
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16231722627
+      "solana_usd_pegged_stables": 16308415827
     }
   }
 }

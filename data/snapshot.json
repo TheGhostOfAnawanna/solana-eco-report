@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-25T23:17:10.116764+00:00",
+  "generated_utc": "2026-08-25T23:35:15.333369+00:00",
   "sources": {
     "defillama_chains": {
       "solana_tvl_usd": 5578629605.95831,
@@ -52,12 +52,17 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1459360567.9567335,
+          "tvl_usd": 1480809377.70641,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1175518249.7360654,
+          "tvl_usd": 1183688564.711101,
+          "category": "Lending"
+        },
+        {
+          "name": "Jupiter Lend",
+          "tvl_usd": 1059000744.7914312,
           "category": "Lending"
         },
         {
@@ -66,18 +71,13 @@
           "category": "Dexs"
         },
         {
-          "name": "Jupiter Lend",
-          "tvl_usd": 1049520673.4483142,
-          "category": "Lending"
-        },
-        {
           "name": "Binance Staked SOL",
-          "tvl_usd": 992389458.3762779,
+          "tvl_usd": 999327178.9624361,
           "category": "Liquid Staking"
         },
         {
           "name": "Jito Liquid Staking",
-          "tvl_usd": 971499849.5333914,
+          "tvl_usd": 978080792.1267025,
           "category": "Liquid Staking"
         },
         {
@@ -87,12 +87,12 @@
         },
         {
           "name": "Jupiter Perpetual Exchange",
-          "tvl_usd": 747690035.6238202,
+          "tvl_usd": 751623199.8798263,
           "category": "Derivatives"
         },
         {
           "name": "Jupiter Staked SOL",
-          "tvl_usd": 500661070.4347006,
+          "tvl_usd": 505010313.8161834,
           "category": "Liquid Staking"
         },
         {
@@ -122,25 +122,25 @@
         },
         {
           "name": "OnRe",
-          "tvl_usd": 277005146.7362335,
+          "tvl_usd": 277204306.22936755,
           "category": "RWA"
         }
       ]
     },
     "coingecko_sol": {
-      "price_usd": 97.14,
-      "market_cap_usd": 56694127170,
+      "price_usd": 96.96,
+      "market_cap_usd": 56569326182,
       "rank": 7,
-      "change_24h_pct": -0.46478,
+      "change_24h_pct": -1.13145,
       "change_7d_pct": 26.5,
       "change_30d_pct": 28.0
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 53.88,
-      "total_transactions": 541851837123,
-      "tps_total": 4111.0,
-      "tps_non_vote": 2267.0
+      "epoch_progress_pct": 54.57,
+      "total_transactions": 541856219053,
+      "tps_total": 3953.0,
+      "tps_non_vote": 2081.0
     },
     "defillama_history": {
       "days": [
@@ -514,11 +514,11 @@
     },
     "self_observed_trend": {
       "since": "2026-08-25T23:16Z",
-      "snapshots_tracked": 2,
+      "snapshots_tracked": 3,
       "tvl_then_usd": 5578629606,
       "tvl_change_pct": 0.0,
       "price_then_usd": 97.14,
-      "price_change_pct": 0.0
+      "price_change_pct": -0.19
     }
   }
 }

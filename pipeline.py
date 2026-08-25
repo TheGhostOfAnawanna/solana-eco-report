@@ -75,6 +75,29 @@ def main():
     }
     time.sleep(2)
 
+    # 5. DeFiLlama: Solana TVL history (90d) + stablecoin mcap
+    hist = get("https://api.llama.fi/v2/historicalChainTvl/Solana")
+    cutoff = time.time() - 90 * 86400
+    h90 = [p for p in hist if p["date"] >= cutoff]
+    if len(h90) >= 2:
+        first, last = h90[0]["tvl"], h90[-1]["tvl"]
+        snap["sources"]["defillama_history"] = {
+            "days": [(p["date"], round(p["tvl"])) for p in h90],
+            "tvl_90d_ago_usd": first,
+            "tvl_now_usd": last,
+            "change_90d_pct": round(100 * (last - first) / first, 1) if first else None,
+        }
+    time.sleep(2)
+    st = get("https://stablecoins.llama.fi/stablecoins?includePrices=false")
+    if isinstance(st, dict):
+        total = 0
+        for a in st.get("peggedAssets", []):
+            v = ((a.get("chainCirculating") or {}).get("Solana") or {}).get("current", {}).get("peggedUSD", 0)
+            if isinstance(v, (int, float)):
+                total += v
+        snap["sources"]["defillama_stables"] = {"solana_usd_pegged_stables": round(total)}
+    time.sleep(1)
+
     with open(os.path.join(OUT_DIR, "snapshot.json"), "w") as f:
         json.dump(snap, f, indent=2)
 
@@ -100,11 +123,17 @@ def main():
     for i, p in enumerate(d["defillama_protocols"]["top15"], 1):
         lines.append(f"| {i} | {p['name']} | {p['category']} | ${(p['tvl_usd'] or 0):,.0f} |")
     net = d['solana_rpc']
+    hist = d.get('defillama_history')
+    stb = d.get('defillama_stables')
     lines += ["", "## Network health", "",
               f"- **Epoch:** {net['epoch']} ({net['epoch_progress_pct']}% complete)",
               f"- **Throughput:** {net['tps_total']:,.0f} tx/s total · {net['tps_non_vote']:,.0f} tx/s non-vote",
-              f"- **Lifetime transactions:** {net['total_transactions']:,}",
-              "", "---", "*Data: DeFiLlama public API + CoinGecko free tier + Solana public RPC. Pipeline refreshes via GitHub Actions cron.*"]
+              f"- **Lifetime transactions:** {net['total_transactions']:,}"]
+    if hist:
+        lines += [f"- **TVL trend:** ${hist['tvl_90d_ago_usd']:,.0f} → ${hist['tvl_now_usd']:,.0f} over 90d ({hist['change_90d_pct']:+.1f}%)"]
+    if stb:
+        lines += [f"- **USD-pegged stablecoins on Solana:** ${stb['solana_usd_pegged_stables']:,.0f}"]
+    lines += ["", "---", "*Data: DeFiLlama public API + CoinGecko free tier + Solana public RPC. Report auto-refreshes every 6h via update.sh cron; dashboard is live client-side.*"]
 
     with open(os.path.join(OUT_DIR, "report.md"), "w") as f:
         f.write("\n".join(lines))

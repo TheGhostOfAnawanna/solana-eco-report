@@ -1,59 +1,177 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Solana Ecosystem Dashboard</title>
-<style>body{font-family:system-ui;background:#0b1120;color:#e2e8f0;margin:2rem}h1{color:#9945FF}table{border-collapse:collapse;margin:1rem 0}td,th{padding:.4rem .8rem;border-bottom:1px solid #334155;text-align:left}.num{font-variant-numeric:tabular-nums}#meta{color:#94a3b8}</style></head>
-<body><h1>Solana Ecosystem Dashboard</h1><p id="meta">Querying live…</p><div id="out">Loading…</div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solana Ecosystem Dashboard — live &amp; auto-updating</title>
+<meta name="description" content="Auto-updating Solana ecosystem report: network performance, validators, economics, DEX volume, news. No API keys, refreshed every 6h.">
+<style>
+:root{--bg:#0b1120;--card:#111a2e;--line:#22304d;--txt:#e2e8f0;--dim:#94a3b8;--faint:#64748b;
+ --sol1:#9945FF;--sol2:#14F195;--warn:#f59e0b;--alert:#ef4444}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--txt);margin:0;padding:1rem;line-height:1.45}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:1.5rem;margin:.2rem 0}h1 .grad{background:linear-gradient(90deg,var(--sol1),var(--sol2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:1.05rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin:1.6rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+#meta{color:var(--faint);font-size:.85rem;margin:.3rem 0 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem}
+.card .k{color:var(--faint);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+.card .v{font-size:1.15rem;font-weight:650;font-variant-numeric:tabular-nums;margin-top:.15rem}
+.card .s{color:var(--dim);font-size:.78rem;margin-top:.1rem}
+.up{color:var(--sol2)}.down{color:var(--alert)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.9rem}
+th,td{padding:.45rem .7rem;text-align:left;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}th{color:var(--dim);font-weight:600;font-size:.78rem;text-transform:uppercase}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:#1c2942;border-radius:99px;overflow:hidden;margin-top:.4rem}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sol1),var(--sol2))}
+#anoms{margin:1rem 0}
+.anom{background:#2a1420;border:1px solid #7f1d3a;border-left:4px solid var(--alert);border-radius:8px;padding:.55rem .8rem;margin:.4rem 0;font-size:.9rem}
+.anom.warn{background:#271e10;border-color:#78530b;border-left-color:var(--warn)}
+.anom.info{background:#10202a;border-color:#155e75;border-left-color:#38bdf8}
+svg.chart{width:100%;height:auto;display:block;background:#0e1628;border-radius:10px;border:1px solid var(--line)}
+.news a{color:var(--txt);text-decoration:none}.news a:hover{color:var(--sol2)}
+.news li{margin:.35rem 0}.news .src{color:var(--faint);font-size:.78rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;align-items:start}
+footer{color:var(--faint);font-size:.8rem;margin-top:2rem;border-top:1px solid var(--line);padding-top:.8rem}
+footer a{color:var(--dim)}
+.badge{display:inline-block;background:#182343;border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:.1rem .6rem;font-size:.72rem;margin-right:.3rem}
+@media(max-width:600px){body{padding:.7rem}.card .v{font-size:1rem}}
+</style>
+</head>
+<body><div class="wrap">
+<h1>🟣 <span class="grad">Solana Ecosystem Dashboard</span></h1>
+<div id="meta">Loading…</div>
+<div id="anoms"></div>
+<div id="stats" class="grid"></div>
+
+<h2>Chain TVL · 90 days</h2>
+<div id="chart"><div class="card s">loading chart…</div></div>
+
+<div class="cols">
+<div>
+<h2>Validators · top by stake</h2>
+<table id="vals"><tr><th colspan=4>loading snapshot…</th></tr></table>
+<p class="s" id="valsum"></p>
+</div>
+<div>
+<h2>Ecosystem &amp; community news <span class=badge>RSS · auto</span></h2>
+<ul class="news" id="news"><li class=s>loading snapshot…</li></ul>
+</div>
+</div>
+
+<div class="cols">
+<div>
+<h2>Top chains by TVL</h2>
+<table id="chains"><tr><th colspan=3>loading…</th></tr></table>
+</div>
+<div>
+<h2>Top Solana protocols</h2>
+<table id="protos"><tr><th colspan=4>loading snapshot…</th></tr></table>
+</div>
+</div>
+
+<h2>Upcoming upgrades &amp; developments <span class=badge>curated · dated</span></h2>
+<ul class="news" id="upg"><li class=s>loading snapshot…</li></ul>
+
+<footer id="foot">
+Sources: Solana public JSON-RPC · DeFiLlama public API · CoinGecko free tier · Cointelegraph/CoinDesk RSS.
+No API keys, no paid services. Pipeline refreshes every 6h via cron — every run is a git commit:
+<a href="https://github.com/TheGhostOfAnawanna/solana-eco-report/commits/main">commit history = auto-update proof</a>.
+Headline stats fetch live on each page load; tables/news render from the latest committed <code>data/snapshot.json</code>.
+</footer>
+</div>
 <script>
-// LIVE client-side: auto-updates on every page load. Sources: api.llama.fi + api.coingecko.com (free, CORS-enabled, no keys).
 const fmt=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+const pct=n=>(n>0?'+':'')+Number(n).toFixed(1)+'%';
 const j=u=>fetch(u,{headers:{accept:'application/json'}}).then(r=>r.json());
 const rpc=(m,p)=>fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(r=>r.json()).then(x=>x.result);
+
+// ---- snapshot-driven sections (same-origin, committed every 6h by pipeline) ----
+j('./data/snapshot.json').then(s=>{
+  const d=s.sources||{};
+  // anomaly banner
+  const A=document.getElementById('anoms');
+  (s.anomalies||[]).forEach(x=>{
+    A.insertAdjacentHTML('beforeend',
+      `<div class="anom ${x.severity}">⚠️ <b>${x.metric}</b> [${x.severity}] — ${x.detail}</div>`)});
+  if(!(s.anomalies||[]).length)A.innerHTML='<div class="anom info" style="border-left-color:var(--sol2)">✅ No anomalies flagged in latest automated scan.</div>';
+
+  const val=d.validators||{}, net=d.solana_rpc||{}, dx=d.defillama_dexs||{}, fx=d.defillama_fees||{},
+        stb=d.defillama_stables||{}, dl=d.defillama_chains||{}, cg=d.coingecko_sol||{};
+  document.getElementById('stats').innerHTML=[
+    ['SOL price', cg.price_usd?'$'+cg.price_usd.toLocaleString():'—', `24h ${pct(cg.change_24h_pct||0)}`, cg.change_24h_pct],
+    ['Market cap', cg.market_cap_usd?fmt(cg.market_cap_usd):'—', 'rank #'+(cg.rank??'—')],
+    ['Chain TVL', dl.solana_tvl_usd?fmt(dl.solana_tvl_usd):'—', 'rank #'+dl.solana_rank+' all chains'],
+    ['DEX volume 24h', dx.volume_24h_usd?fmt(dx.volume_24h_usd):'—', `1d ${pct(dx.change_1d_pct||0)} · 7d ${pct(dx.change_7d_pct||0)}`],
+    ['Ecosystem fees 24h', fx.fees_24h_usd?fmt(fx.fees_24h_usd):'—', `30d ${fx.fees_30d_usd?fmt(fx.fees_30d_usd):'—'} (REV proxy)`],
+    ['Stablecoins (USD)', stb.solana_usd_pegged_stables?fmt(stb.solana_usd_pegged_stables):'—', 'on Solana'],
+    ['Non-vote TPS', net.tps_non_vote!=null?Math.round(net.tps_non_vote).toLocaleString():'—', `${Math.round(net.tps_total||0).toLocaleString()} incl. votes`],
+    ['Slot time', net.slot_time_ms?net.slot_time_ms+' ms':'—', 'avg recent samples'],
+    ['Validators', val.active+' active', val.delinquent+' delinquent ('+val.delinquency_pct+'%)'],
+    ['Circulating supply', net.supply_circulating_sol?Number(net.supply_circulating_sol).toLocaleString()+' SOL':'—', 'of '+Number(net.supply_total_sol||0).toLocaleString()+' total'],
+    ['Priority fee mean', net.priority_fee_mean_micro_lamports+' µL', 'base fee fixed 5000 lamports'],
+    ['Snapshot', (s.generated_utc||'').slice(0,16)+'Z', 'committed by pipeline'],
+  ].map(([k,v,s2])=>`<div class="card"><div class=k>${k}</div><div class=v>${v}</div><div class=s>${s2||''}</div></div>`).join('');
+
+  const vp=(val.top10_by_stake||[]).map((v,i)=>
+    `<tr><td>${i+1}</td><td><code>${v.vote_account}</code></td><td class=num>${v.stake_msol.toFixed(2)}</td><td class=num>${v.commission_pct}%</td></tr>`).join('');
+  document.getElementById('vals').innerHTML=`<tr><th>#</th><th>Vote account</th><th style=text-align:right>Stake M·SOL</th><th style=text-align:right>Comm.</th></tr>${vp}`;
+  document.getElementById('valsum').textContent=
+    `Total stake ${Number(val.total_stake_sol).toLocaleString()} SOL · median commission ${val.median_commission_pct}% · top-10 hold ${val.top10_stake_share_pct}% of stake`;
+
+  document.getElementById('news').innerHTML=(d.news||[]).map(n=>
+    `<li><a href="${n.link}" target=_blank rel=noopener>${n.title}</a><br><span class=src>${n.feed} · ${n.published.slice(5,16)}</span></li>`).join('');
+
+  document.getElementById('upg').innerHTML=(d.upcoming_upgrades||[]).map(u=>
+    `<li><b>${u.name}</b> <span class=badge>${u.status}</span> — ${u.note}<br><span class=src><a href="${u.source}" target=_blank rel=noopener>source</a> · reviewed ${u.last_reviewed}</span></li>`).join('');
+
+  const protos=(d.defillama_protocols||{}).top15||[];
+  document.getElementById('protos').innerHTML='<tr><th>#</th><th>Protocol</th><th>Cat</th><th style=text-align:right>TVL</th></tr>'+
+    protos.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td class=s>${p.category||''}</td><td class=num>${fmt(p.tvl_usd)}</td></tr>`).join('');
+}).catch(e=>console.warn('snapshot section:',e));
+
+// ---- live sections (fresh on every page load) ----
 Promise.all([
   j('https://api.llama.fi/v2/chains'),
-  j('https://api.llama.fi/protocols'),
-  j('https://api.coingecko.com/api/v3/coins/markets?ids=solana&vs_currency=usd&price_change_percentage=24h,7d'),
-  rpc('getEpochInfo'),
-  rpc('getRecentPerformanceSamples',[8]),
-  j('https://api.llama.fi/v2/historicalChainTvl/Solana'),
-  j('https://stablecoins.llama.fi/stablecoins?includePrices=false')
-]).then(([chains,protos,cg,epoch,samples,hist,st])=>{
-  document.getElementById('meta').textContent='Live · '+new Date().toUTCString()+' · sources: DeFiLlama + CoinGecko';
-  const sol=cg[0];
+  j('https://api.coingecko.com/api/v3/coins/markets?ids=solana&vs_currency=usd&price_change_percentage=24h'),
+  rpc('getEpochInfo'), rpc('getRecentPerformanceSamples',[8]),
+]).then(([chains,cg,epoch,samples])=>{
+  const sol=cg[0]||{};
   const top=chains.filter(c=>c.tvl>0).sort((a,b)=>b.tvl-a.tvl);
-  const solRank=top.findIndex(c=>c.name==='Solana')+1;
-  const solTvl=top.find(c=>c.name==='Solana')?.tvl??0;
-  const perChain=p=>{const v=(p.chainTvls||{}).Solana;return typeof v==='number'?v:0};
-  const sp=protos.filter(p=>(p.chains||[]).includes('Solana')&&p.category!=='CEX'&&perChain(p)>0)
-                  .sort((a,b)=>perChain(b)-perChain(a)).slice(0,15);
-  let h=`<p class="num">SOL <b>${fmt(sol.current_price)}</b> · mcap ${fmt(sol.market_cap)} (#${sol.market_cap_rank}) · chain TVL <b>${fmt(solTvl)}</b> (rank #${solRank} of ${top.length} chains)</p>`;
-  h+='<table><tr><th colspan=3>Top 10 chains by TVL</th></tr>';
-  top.slice(0,10).forEach((c,i)=>{h+=`<tr><td>${i+1}</td><td>${c.name}</td><td class=num>${fmt(c.tvl)}</td></tr>`});
-  h+='</table><table><tr><th colspan=4>Top protocols on Solana (per-chain TVL)</th></tr>';
-  sp.forEach((p,i)=>{h+=`<tr><td>${i+1}</td><td>${p.name}</td><td>${p.category??''}</td><td class=num>${fmt(perChain(p))}</td></tr>`});
-  h+='</table>';
+  document.getElementById('chains').innerHTML='<tr><th>#</th><th>Chain</th><th style=text-align:right>TVL</th></tr>'+
+    top.slice(0,10).map((c,i)=>`<tr><td>${i+1}</td><td>${c.name}${c.name==='Solana'?' 🟣':''}</td><td class=num>${fmt(c.tvl)}</td></tr>`).join('');
   const secs=samples.reduce((a,s)=>a+s.samplePeriodSecs,0);
   const tps=Math.round(samples.reduce((a,s)=>a+s.numTransactions,0)/secs);
-  const nvtps=Math.round(samples.reduce((a,s)=>a+s.numNonVoteTransactions,0)/secs);
-  const epPct=(100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(2);
-  h+=`<p class=num>Epoch <b>${epoch.epoch}</b> (${epPct}% complete) · <b>${tps.toLocaleString()}</b> tx/s total · ${nvtps.toLocaleString()} tx/s non-vote · ${(epoch.transactionCount/1e9).toFixed(1)}B lifetime txns</p>`;
-  // 90-day TVL chart (inline SVG, no libs)
+  const nv=Math.round(samples.reduce((a,s)=>a+s.numNonVoteTransactions,0)/secs);
+  const epPct=(100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(1);
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
+    `<div class="bar" title="epoch progress"><i style="width:${epPct}%"></i></div>`);
+  document.getElementById('meta').innerHTML=
+    `<span class="badge">● LIVE</span> rendered ${new Date().toUTCString()} · epoch <b>${epoch.epoch}</b> (${epPct}%) · <b>${nv.toLocaleString()}</b> tx/s non-vote (${tps.toLocaleString()} total) · block height ${Number(epoch.blockHeight).toLocaleString()} · SOL $${(sol.current_price||0).toLocaleString()} <span class="${sol.price_change_percentage_24h>=0?'up':'down'}">${pct(sol.price_change_percentage_24h||0)} 24h</span>`;
+  return j('https://api.llama.fi/v2/historicalChainTvl/Solana');
+}).then(hist=>{
+  if(!hist)return;
   const cutoff=Math.floor(Date.now()/1000)-90*86400;
   const h90=hist.filter(p=>p.date>=cutoff);
-  if(h90.length>1){
-    const W=720,H=160,P=30,vals=h90.map(p=>p.tvl),mn=Math.min(...vals),mx=Math.max(...vals);
-    const x=i=>P+i*(W-2*P)/(h90.length-1), y=v=>H-P-(v-mn)*(H-2*P)/((mx-mn)||1);
-    const pts=h90.map((p,i)=>`${x(i).toFixed(1)},${y(p.tvl).toFixed(1)}`).join(' ');
-    const d0=new Date(h90[0].date*1000).toISOString().slice(0,10), dN=new Date(h90[h90.length-1].date*1000).toISOString().slice(0,10);
-    h+=`<svg width="${W}" height="${H}" style="max-width:100%;background:#111827;border-radius:8px">`
-      +`<polyline points="${pts}" fill="none" stroke="#14F195" stroke-width="2"/>`
-      +`<text x="${P}" y="16" fill="#94a3b8" font-size="12">Solana chain TVL, 90 days (${fmt(mn)} – ${fmt(mx)})</text>`
-      +`<text x="${P}" y="${H-P+14}" fill="#64748b" font-size="11">${d0}</text>`
-      +`<text x="${W-P}" y="${H-P+14}" fill="#64748b" font-size="11" text-anchor="end">${dN} · now ${fmt(vals[vals.length-1])}</text></svg>`;
-    const chg=(100*(vals[vals.length-1]-vals[0])/vals[0]).toFixed(1);
-    h+=`<p class=num>90d TVL change: <b>${chg>0?'+':''}${chg}%</b></p>`;
-  }
-  if(st&&st.peggedAssets){
-    const usd=st.peggedAssets.reduce((a,x)=>{const v=((((x.chainCirculating||{}).Solana||{}).current)||{}).peggedUSD;return a+(typeof v==='number'?v:0)},0);
-    h+=`<p class=num>USD-pegged stablecoins on Solana: <b>${fmt(usd)}</b></p>`;
-  }
-  document.getElementById('out').innerHTML=h;
-}).catch(e=>document.getElementById('out').textContent='Error: '+e);
-</script></body></html>
+  if(h90.length<2)return;
+  const W=1040,H=220,P=44,vals=h90.map(p=>p.tvl),mn=Math.min(...vals),mx=Math.max(...vals);
+  const x=i=>P+i*(W-2*P)/(h90.length-1), y=v=>H-P-(v-mn)*(H-2*P)/((mx-mn)||1);
+  const pts=h90.map((p,i)=>`${x(i).toFixed(1)},${y(p.tvl).toFixed(1)}`).join(' ');
+  const area=`${P},${H-P} ${pts} ${x(h90.length-1)},${H-P}`;
+  const grid=[0,.25,.5,.75,1].map(t=>{const gy=y(mn+t*(mx-mn));return `<line x1=${P} x2=${W-P} y1=${gy} y2=${gy} stroke="#1c2942" stroke-dasharray="3 4"/><text x=6 y=${gy+4} fill="#64748b" font-size=11>${fmt(mn+t*(mx-mn))}</text>`}).join('');
+  const d0=h90[0].date*1000,dN=h90[h90.length-1].date*1000;
+  const ticks=[0,30,60,h90.length-1].map(i=>`<text x=${x(i)} y=${H-P+18} fill="#64748b" font-size=11 text-anchor=middle>${new Date(h90[i].date*1000).toISOString().slice(0,10)}</text>`).join('');
+  const chg=(100*(vals[vals.length-1]-vals[0])/vals[0]);
+  document.getElementById('chart').innerHTML=
+   `<svg viewBox="0 0 ${W} ${H}" class="chart" preserveAspectRatio="xMidYMid meet">${grid}
+     <polygon points="${area}" fill="url(#g)" opacity=".25"/>
+     <defs><linearGradient id=g x1=0 x2=0 y1=0 y2=1><stop offset=0 stop-color="#14F195"/><stop offset=1 stop-color="#14F195" stop-opacity=0/></linearGradient></defs>
+     <polyline points="${pts}" fill="none" stroke="#14F195" stroke-width="2"/>
+     <circle cx=${x(h90.length-1)} cy=${y(vals[vals.length-1])} r=4 fill="#14F195"/>
+     <text x=${W-P} y=20 fill="#94a3b8" font-size=13 text-anchor=end>Solana chain TVL · now ${fmt(vals[vals.length-1])} · 90d <tspan class="${chg>=0?'up':'down'}" fill="${chg>=0?'#14F195':'#ef4444'}">${pct(chg)}</tspan></text>
+     ${ticks}</svg>`;
+}).catch(e=>{document.getElementById('meta').textContent='Live section error: '+e});
+</script>
+</body></html>

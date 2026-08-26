@@ -83,22 +83,25 @@ Headline stats fetch live on each page load; tables/news render from the latest 
 </footer>
 </div>
 <script>
-const fmt=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
-const pct=n=>(n>0?'+':'')+Number(n).toFixed(1)+'%';
-const j=u=>fetch(u,{headers:{accept:'application/json'}}).then(r=>r.json());
-const rpc=(m,p)=>fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(r=>r.json()).then(x=>x.result);
+const fmt=function(n){return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0})};
+const pct=function(n){return (n>0?'+':'')+Number(n).toFixed(1)+'%'};
+const j=function(u){return fetch(u,{headers:{accept:'application/json'}}).then(function(r){return r.json()})};
+const rpc=function(m,p){return fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(function(r){return r.json()}).then(function(x){return x.result})};
 
 // ---- snapshot-driven sections (same-origin, committed every 6h by pipeline) ----
-j('./data/snapshot.json').then(snap=>{
-  const d=snap.sources||{};
+j('./data/snapshot.json').then(function(snap){
+  var d=snap.sources||{};
   // anomaly banner
-  const A=document.getElementById('anoms');
-  (snap.anomalies||[]).forEach(x=>{
-    A.insertAdjacentHTML('beforeend',
-      `<div class="anom ${x.severity}">⚠️ <b>${x.metric}</b> [${x.severity}] — ${x.detail}</div>`)});
-  if(!(snap.anomalies||[]).length)A.innerHTML='<div class="anom info" style="border-left-color:var(--sol2)">✅ No anomalies flagged in latest automated scan.</div>';
+  var A=document.getElementById('anoms');
+  if(snap.anomalies&&snap.anomalies.length){
+    snap.anomalies.forEach(function(x){
+      A.insertAdjacentHTML('beforeend','<div class="anom '+x.severity+'">⚠️ <b>'+x.metric+'</b> ['+x.severity+'] — '+x.detail+'</div>');
+    });
+  }else{
+    A.innerHTML='<div class="anom info" style="border-left-color:var(--sol2)">✅ No anomalies flagged in latest automated scan.</div>';
+  }
 
-  const val=d.validators||{}, net=d.solana_rpc||{}, dx=d.defillama_dexs||{}, fx=d.defillama_fees||{},
+  var val=d.validators||{}, net=d.solana_rpc||{}, dx=d.defillama_dexs||{}, fx=d.defillama_fees||{},
         stb=d.defillama_stables||{}, dl=d.defillama_chains||{}, cg=d.coingecko_sol||{};
   document.getElementById('stats').innerHTML=[
     ['SOL price', cg.price_usd?'$'+cg.price_usd.toLocaleString():'—', `24h ${pct(cg.change_24h_pct||0)}`, cg.change_24h_pct],
@@ -113,50 +116,58 @@ j('./data/snapshot.json').then(snap=>{
     ['Circulating supply', net.supply_circulating_sol?Number(net.supply_circulating_sol).toLocaleString()+' SOL':'—', 'of '+Number(net.supply_total_sol||0).toLocaleString()+' total'],
     ['Priority fee mean', net.priority_fee_mean_micro_lamports+' µL', 'base fee fixed 5000 lamports'],
     ['Snapshot', (snap.generated_utc||'').slice(0,16)+'Z', 'committed by pipeline'],
-  ].map(([k,v,s2])=>`<div class="card"><div class=k>${k}</div><div class=v>${v}</div><div class=s>${s2||''}</div></div>`).join('');
+  ].map(function(kvss){
+    var k=kvss[0], v=kvss[1], s2=kvss[2];
+    return '<div class="card"><div class=k>'+k+'</div><div class=v>'+v+'</div><div class=s>'+(s2||'')+'</div></div>';
+  }).join('');
 
-  const vp=(val.top10_by_stake||[]).map((v,i)=>
-    `<tr><td>${i+1}</td><td><code>${v.vote_account}</code></td><td class=num>${v.stake_msol.toFixed(2)}</td><td class=num>${v.commission_pct}%</td></tr>`).join('');
-  document.getElementById('vals').innerHTML=`<tr><th>#</th><th>Vote account</th><th style=text-align:right>Stake M·SOL</th><th style=text-align:right>Comm.</th></tr>${vp}`;
+  var vp=(val.top10_by_stake||[]).map(function(v,i){
+    return '<tr><td>'+(i+1)+'</td><td><code>'+v.vote_account+'</code></td><td class=num>'+v.stake_msol.toFixed(2)+'</td><td class=num>'+v.commission_pct+'%</td></tr>';
+  }).join('');
+  document.getElementById('vals').innerHTML='<tr><th>#</th><th>Vote account</th><th style=text-align:right>Stake M·SOL</th><th style=text-align:right>Comm.</th></tr>'+vp;
   document.getElementById('valsum').textContent=
-    `Total stake ${Number(val.total_stake_sol).toLocaleString()} SOL · median commission ${val.median_commission_pct}% · top-10 hold ${val.top10_stake_share_pct}% of stake`;
+    'Total stake '+Number(val.total_stake_sol).toLocaleString()+' SOL · median commission '+val.median_commission_pct+'% · top-10 hold '+val.top10_stake_share_pct+'% of stake';
 
-  document.getElementById('news').innerHTML=(d.news||[]).map(n=>
-    `<li><a href="${n.link}" target=_blank rel=noopener>${n.title}</a><br><span class=src>${n.feed} · ${n.published.slice(5,16)}</span></li>`).join('');
+  document.getElementById('news').innerHTML=(d.news||[]).map(function(n){
+    return '<li><a href="'+n.link+'" target=_blank rel=noopener>'+n.title+'</a><br><span class=src>'+n.feed+' · '+n.published.slice(5,16)+'</span></li>';
+  }).join('');
 
-  document.getElementById('upg').innerHTML=(d.upcoming_upgrades||[]).map(u=>
-    `<li><b>${u.name}</b> <span class=badge>${u.status}</span> — ${u.note}<br><span class=src><a href="${u.source}" target=_blank rel=noopener>source</a> · reviewed ${u.last_reviewed}</span></li>`).join('');
+  document.getElementById('upg').innerHTML=(d.upcoming_upgrades||[]).map(function(u){
+    return '<li><b>'+u.name+'</b> <span class=badge>'+u.status+'</span> — '+u.note+'<br><span class=src><a href="'+u.source+'" target=_blank rel=noopener>source</a> · reviewed '+u.last_reviewed+'</span></li>';
+  }).join('');
 
-  const protos=(d.defillama_protocols||{}).top15||[];
+  var protos=(d.defillama_protocols||{}).top15||[];
   document.getElementById('protos').innerHTML='<tr><th>#</th><th>Protocol</th><th>Cat</th><th style=text-align:right>TVL</th></tr>'+
-    protos.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td class=s>${p.category||''}</td><td class=num>${fmt(p.tvl_usd)}</td></tr>`).join('');
-}).catch(e=>console.warn('snapshot section:',e));
+    protos.map(function(p,i){
+      return '<tr><td>'+(i+1)+'</td><td>'+p.name+'</td><td class=s>'+p.category+'</td><td class=num>'+fmt(p.tvl_usd)+'</td></tr>';
+    }).join('');
+}).catch(function(e){console.warn('snapshot section:',e)});
 
 // ---- live sections (fresh on every page load) ----
 // We'll try to fetch live data, but if any fails we'll fall back to snapshot data.
-j('./data/snapshot.json').then(snap=>{
+j('./data/snapshot.json').then(function(snap){
   // Initialize fallback data from snapshot
-  let liveData = {
-    chains: snap.sources.defillama_chains.top10_by_tvl?.map(item => ({ name: item.chain, tvl: item.tvl_usd })) || [],
-    cg: snap.sources.coingecko_sol ? [{
+  var liveData = {
+    chains: (snap.sources.defillama_chains&&snap.sources.defillama_chains.top10_by_tvl)?snap.sources.defillama_chains.top10_by_tvl.map(function(item){return {name:item.chain, tvl:item.tvl_usd};}):[],
+    cg: (snap.sources.coingecko_sol)?[{
       current_price: snap.sources.coingecko_sol.price_usd,
       market_cap: snap.sources.coingecko_sol.market_cap_usd,
       market_cap_rank: snap.sources.coingecko_sol.rank,
       price_change_percentage_24h_in_currency: snap.sources.coingecko_sol.change_24h_pct
-    }] : [],
+    }]:[],
     epoch: {
-      epoch: snap.sources.solana_rpc.epoch,
-      slotIndex: 0, // unknown
-      slotsInEpoch: 0, // unknown
-      blockHeight: snap.sources.solana_rpc.blockHeight
+      epoch: (snap.sources.solana_rpc&&snap.sources.solana_rpc.epoch)?snap.sources.solana_rpc.epoch:0,
+      slotIndex: 0,
+      slotsInEpoch: 0,
+      blockHeight: (snap.sources.solana_rpc&&snap.sources.solana_rpc.blockHeight)?snap.sources.solana_rpc.blockHeight:0
     },
     samples: [
-      { samplePeriodSecs: 0, numTransactions: 0, numNonVoteTransactions: 0 }
+      {samplePeriodSecs:0, numTransactions:0, numNonVoteTransactions:0}
     ],
-    hist: snap.sources.defillama_history?.daily?.map(day => ({ date: day[0], tvl: day[1] })) || []
+    hist: (snap.sources.defillama_history&&snap.sources.defillama_history.daily)?snap.sources.defillama_history.daily.map(function(day){return {date:day[0], tvl:day[1]};}):[]
   };
   
-  let liveError = null;
+  var liveError = null;
   
   // Try to fetch live data
   Promise.all([
@@ -165,7 +176,8 @@ j('./data/snapshot.json').then(snap=>{
     rpc('getEpochInfo'),
     rpc('getRecentPerformanceSamples',[8]),
     j('https://api.llama.fi/v2/historicalChainTvl/Solana')
-  ]).then(([chainsResponse, cgResponse, epochResponse, samplesResponse, histResponse])=>{
+  ]).then(function(results){
+    var chainsResponse=results[0], cgResponse=results[1], epochResponse=results[2], samplesResponse=results[3], histResponse=results[4];
     // Update liveData with actual fetched data
     liveData = {
       chains: chainsResponse,
@@ -175,50 +187,50 @@ j('./data/snapshot.json').then(snap=>{
       hist: histResponse
     };
     liveError = null; // Clear error if fetch succeeds
-  }).catch(err=>{
+  }).catch(function(err){
     liveError = err;
     // Keep fallback data from snapshot
     console.warn('Live data fetch failed, using snapshot fallback:', err);
-  }).finally(()=>{
+  }).finally(function(){
     // Render with whatever data we have (live or fallback)
-    renderLiveSection(liveData, liveError);
+    renderLiveSection(liveData, liveError, snap);
   });
-}).catch(e=>{document.getElementById('meta').textContent='Live section error: '+e});
+}).catch(function(e){document.getElementById('meta').textContent='Live section error: '+e});
 
-function renderLiveSection(data, error) {
-  const { chains, cg, epoch, samples, hist } = data;
-  const sol = cg[0] || {};
+function renderLiveSection(data, error, snap){
+  var chains=data.chains, cg=data.cg, epoch=data.epoch, samples=data.samples, hist=data.hist;
+  var sol=cg[0]||{};
   
   // Handle chains data safely
-  const topChains = chains && Array.isArray(chains) 
-    ? chains.filter(c=>c && c.tvl>0).sort((a,b)=>b.tvl-a.tvl) 
-    : [];
+  var topChains = (chains&&Array.isArray(chains))?chains.filter(function(c){return c&&c.tvl>0;}).sort(function(a,b){return b.tvl-a.tvl;}):[];
   
   document.getElementById('chains').innerHTML='<tr><th>#</th><th>Chain</th><th style=text-align:right>TVL</th></tr>'+
-    topChains.slice(0,10).map((c,i)=>`<tr><td>${i+1}</td><td>${c && c.name ? c.name : 'Unknown'}${c && c.name==='Solana'?' 🟣':''}</td><td class=num>${fmt(c && c.tvl)}</td></tr>`).join('');
+    topChains.slice(0,10).map(function(c,i){
+      var name=(c&&c.name)?c.name:'Unknown';
+      var solMarker=(name==='Solana')?' 🟣':'';
+      var tvl=(c&&c.tvl)?fmt(c.tvl):'—';
+      return '<tr><td>'+(i+1)+'</td><td>'+name+solMarker+'</td><td class=num>'+tvl+'</td></tr>';
+    }).join('');
   
   // Handle samples data safely
-  const secs = samples && Array.isArray(samples) 
-    ? samples.reduce((a,s)=>a+(s && s.samplePeriodSecs||0),0) 
-    : 0;
+  var secs = (samples&&Array.isArray(samples))?samples.reduce(function(a,s){return a+(s&&s.samplePeriodSecs||0);},0):0;
     
-  const tps = secs 
-    ? Math.round(samples.reduce((a,s)=>a+(s && s.numTransactions||0),0)/secs) 
-    : 0;
+  var tps = (secs>0)?Math.round(samples.reduce(function(a,s){return a+(s&&s.numTransactions||0);},0)/secs):0;
     
-  const nv = secs 
-    ? Math.round(samples.reduce((a,s)=>a+(s && s.numNonVoteTransactions||0),0)/secs) 
-    : 0;
+  var nv = (secs>0)?Math.round(samples.reduce(function(a,s){return a+(s&&s.numNonVoteTransactions||0);},0)/secs):0;
     
-  const epPct = epoch && epoch.slotIndex && epoch.slotsInEpoch 
-    ? (100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(1) 
-    : (snap && snap.sources && snap.sources.solana_rpc && snap.sources.solana_rpc.epoch_progress_pct ?? 0);
+  var epPct = 0;
+  if(epoch&&epoch.slotIndex!==undefined&&epoch.slotsInEpoch!==undefined&&epoch.slotsInEpoch>0){
+    epPct = (100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(1);
+  }else if(snap&&snap.sources&&snap.sources.solana_rpc&&snap.sources.solana_rpc.epoch_progress_pct!==undefined){
+    epPct = snap.sources.solana_rpc.epoch_progress_pct;
+  }
     
   document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
-    `<div class="bar" title="epoch progress"><i style="width:${epPct}%"></i></div>`);
+    '<div class="bar" title="epoch progress"><i style="width:'+epPct+'%"></i></div>');
     
-  document.getElementById('meta').innerHTML=
-    `<span class="badge">● LIVE</span> rendered ${new Date().toUTCString()} · epoch <b>${epoch && epoch.epoch || '?'}</b> (${epPct}%) · <b>${nv.toLocaleString()}</b> tx/s non-vote (${tps.toLocaleString()} total) · block height ${Number(epoch && epoch.blockHeight).toLocaleString()} · SOL $${(sol && sol.current_price||0).toLocaleString()} <span class="${sol && sol.price_change_percentage_24h>=0?'up':'down'}">${pct(sol && sol.price_change_percentage_24h||0)} 24h</span>`;
+  var metaInner = '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+') total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL $'+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
+  document.getElementById('meta').innerHTML=metaInner;
     
   // Handle chart data safely
   if(!hist||!Array.isArray(hist)||hist.length<2){
@@ -227,32 +239,33 @@ function renderLiveSection(data, error) {
   }
   
   try {
-    const W=1040,H=220,P=44;
-    const vals=hist.map(p=>p && p.tvl || 0).filter(v=>v!==null && v!==undefined);
+    var W=1040,H=220,P=44;
+    var vals=hist.map(function(p){return p&&p.tvl||0;}).filter(function(v){return v!==null&&v!==undefined;});
     if (vals.length < 2) {
       document.getElementById('chart').innerHTML='<div class="card s">insufficient chart data</div>';
       return;
     }
     
-    const mn=Math.min(...vals);
-    const mx=Math.max(...vals);
-    const x=i=>P+i*(W-2*P)/(hist.length-1);
-    const y=v=>H-P-(v-mn)*(H-2*P)/((mx-mn)||1);
-    const pts=hist.map((p,i)=>`${x(i).toFixed(1)},${y(p && p.tvl || 0).toFixed(1)}`).filter(Boolean).join(' ');
-    const area=`${P},${H-P} ${pts} ${x(hist.length-1)},${H-P}`;
-    const grid=[0,.25,.5,.75,1].map(t=>{const gy=y(mn+t*(mx-mn));return `<line x1=${P} x2=${W-P} y1=${gy} y2=${gy} stroke="#1c2942" stroke-dasharray="3 4"/><text x=6 y=${gy+4} fill="#64748b" font-size=11>${fmt(mn+t*(mx-mn))}</text>`}).join('');
-    const d0=hist[0].date*1000;
-    const dN=hist[hist.length-1].date*1000;
-    const ticks=[0,30,60,hist.length-1].map(i=>`<text x=${x(i)} y=${H-P+18} fill="#64748b" font-size=11 text-anchor=middle>${new Date(hist[i] && hist[i].date*1000).toISOString().slice(0,10)}</text>`).join('');
-    const chg=(100*(vals[vals.length-1]-vals[0])/vals[0]);
+    var mn=Math.min.apply(Math,vals);
+    var mx=Math.max.apply(Math,vals);
+    var x=function(i){return P+i*(W-2*P)/(hist.length-1);};
+    var y=function(v){return H-P-(v-mn)*(H-2*P)/((mx-mn)||1);};
+    var pts=hist.map(function(p,i){return x(i).toFixed(1)+','+y(p&&p.tvl||0).toFixed(1);}).filter(Boolean).join(' ');
+    var area=P+','+(H-P)+' '+pts+' '+x(hist.length-1)+','+(H-P);
+    var grid=[0,.25,.5,.75,1].map(function(t){return '<line x1='+P+' x2='+(W-P)+' y1='+y(mn+t*(mx-mn))+' y2='+y(mn+t*(mx-mn))+' stroke="#1c2942" stroke-dasharray="3 4"/><text x=6 y='+(y(mn+t*(mx-mn))+4)+' fill="#64748b" font-size=11>'+fmt(mn+t*(mx-mn))+'</text>'}).join('');
+    var d0=hist[0].date*1000;
+    var dN=hist[hist.length-1].date*1000;
+    var ticks=[0,30,60,hist.length-1].map(function(i){return '<text x='+x(i)+' y='+(H-P+18)+' fill="#64748b" font-size=11 text-anchor=middle>'+new Date(hist[i]&&hist[i].date*1000).toISOString().slice(0,10)+'</text>'}).join('');
+    var chg=(100*(vals[vals.length-1]-vals[0])/vals[0]);
     document.getElementById('chart').innerHTML=
-     `<svg viewBox="0 0 ${W} ${H}" class="chart" preserveAspectRatio="xMidYMid meet">${grid}
-       <polygon points="${area}" fill="url(#g)" opacity=".25"/>
-       <defs><linearGradient id=g x1=0 x2=0 y1=0 y2=1><stop offset=0 stop-color="#14F195"/><stop offset=1 stop-color="#14F195" stop-opacity=0/></linearGradient></defs>
-       <polyline points="${pts}" fill="none" stroke="#14F195" stroke-width="2"/>
-       <circle cx=${x(hist.length-1)} cy=${y(vals[vals.length-1])} r=4 fill="#14F195"/>
-       <text x=${W-P} y=20 fill="#94a3b8" font-size=13 text-anchor=end>Solana chain TVL · now ${fmt(vals[vals.length-1])} · 90d <tspan class="${chg>=0?'up':'down'}" fill="${chg>=0?'#14F195':'#ef4444'}">${pct(chg)}</tspan></text>
-       ${ticks}</svg>`;
+     '<svg viewBox="0 0 '+W+' '+H+'" class="chart" preserveAspectRatio="xMidYMid meet">'+grid+
+       '<polygon points="'+area+'" fill="url(#g)" opacity=".25"/>'+
+       '<defs><linearGradient id=g x1=0 x2=0 y1=0 y2=1><stop offset=0 stop-color="#14F195"/><stop offset=1 stop-color="#14F195" stop-opacity=0/></linearGradient></defs>'+
+       '<polyline points="'+pts+'" fill="none" stroke="#14F195" stroke-width="2"/>'+
+       '<circle cx='+x(hist.length-1)+' cy='+y(vals[vals.length-1])+' r=4 fill="#14F195"/>'+
+       '<text x='+(W-P)+' y=20 fill="#94a3b8" font-size=13 text-anchor=end>Solana chain TVL · now '+fmt(vals[vals.length-1])+' · 90d <tspan class="'+(chg>=0?'up':'down')+'" fill="'+(chg>=0?'#14F195':'#ef4444')+'">'+pct(chg)+'</tspan></text>'+
+       ticks+
+       '</svg>';
   } catch(chartError) {
     console.error('Chart rendering error:', chartError);
     document.getElementById('chart').innerHTML='<div class="card s">chart error</div>';

@@ -1,49 +1,50 @@
 {
-  "generated_utc": "2026-08-25T23:35:15.333369+00:00",
+  "generated_utc": "2026-08-26T01:02:28.323816+00:00",
+  "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5578629605.95831,
+      "solana_tvl_usd": 5601977591.423033,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 48924207169.71674
+          "tvl_usd": 49093075545.98918
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5578629605.95831
+          "tvl_usd": 5601977591.423033
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5532657206.742846
+          "tvl_usd": 5550708928.278167
         },
         {
           "chain": "Base",
-          "tvl_usd": 5460350457.652281
+          "tvl_usd": 5489240632.818314
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5162015273.31811
+          "tvl_usd": 5170899342.741483
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4091240880.400223
+          "tvl_usd": 4123730805.4279695
         },
         {
           "chain": "Provenance",
-          "tvl_usd": 1845439331.6965287
+          "tvl_usd": 1852092935.0401685
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1542122922.1591873
+          "tvl_usd": 1562882138.3553753
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1415890443.1999784
+          "tvl_usd": 1420195379.442061
         },
         {
           "chain": "Monad",
-          "tvl_usd": 934087863.0448835
+          "tvl_usd": 935532977.1267229
         }
       ]
     },
@@ -97,27 +98,27 @@
         },
         {
           "name": "xStocks",
-          "tvl_usd": 430541653.01875836,
+          "tvl_usd": 430261199.30428416,
           "category": "RWA"
         },
         {
           "name": "Marinade Native",
-          "tvl_usd": 381237195.7482189,
+          "tvl_usd": 380023854.9289634,
           "category": "Staking Pool"
         },
         {
           "name": "Sentora",
-          "tvl_usd": 363048895.27087194,
+          "tvl_usd": 363031706.3500151,
           "category": "Risk Curators"
         },
         {
           "name": "PumpSwap",
-          "tvl_usd": 331912442.6314481,
+          "tvl_usd": 329771001.1773796,
           "category": "Dexs"
         },
         {
           "name": "Solstice",
-          "tvl_usd": 303058305.0006302,
+          "tvl_usd": 302990925.673341,
           "category": "Basis Trading"
         },
         {
@@ -128,26 +129,91 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 96.96,
-      "market_cap_usd": 56569326182,
+      "price_usd": 96.76,
+      "market_cap_usd": 56392928836,
       "rank": 7,
-      "change_24h_pct": -1.13145,
-      "change_7d_pct": 26.5,
-      "change_30d_pct": 28.0
+      "change_24h_pct": -5.15647,
+      "change_7d_pct": 25.7,
+      "change_30d_pct": 26.3
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 54.57,
-      "total_transactions": 541856219053,
-      "tps_total": 3953.0,
-      "tps_non_vote": 2081.0
+      "epoch_progress_pct": 57.89,
+      "block_height": 419802634,
+      "absolute_slot": 441754073,
+      "total_transactions": 541878314167,
+      "tps_total": 4296.0,
+      "tps_non_vote": 2432.0,
+      "slot_time_ms": 366,
+      "health": "ok",
+      "supply_circulating_sol": 583375533,
+      "supply_total_sol": 632859394,
+      "priority_fee_mean_micro_lamports": 0,
+      "priority_fee_min_micro_lamports": 0
+    },
+    "validators": {
+      "active": 687,
+      "delinquent": 8,
+      "delinquency_pct": 1.15,
+      "total_stake_sol": 435118104,
+      "top10_stake_share_pct": 24.3,
+      "top20_stake_share_pct": 35.6,
+      "top10_by_stake": [
+        {
+          "vote_account": "CcaHc2L43Z\u2026",
+          "stake_msol": 17.07,
+          "commission_pct": 7
+        },
+        {
+          "vote_account": "he1iusunGw\u2026",
+          "stake_msol": 16.04,
+          "commission_pct": 0
+        },
+        {
+          "vote_account": "3N7s9zXMZ4\u2026",
+          "stake_msol": 12.27,
+          "commission_pct": 0
+        },
+        {
+          "vote_account": "CatzoSMUkT\u2026",
+          "stake_msol": 11.74,
+          "commission_pct": 5
+        },
+        {
+          "vote_account": "26pV97Ce83\u2026",
+          "stake_msol": 9.2,
+          "commission_pct": 7
+        },
+        {
+          "vote_account": "51JBzSTU5r\u2026",
+          "stake_msol": 8.92,
+          "commission_pct": 10
+        },
+        {
+          "vote_account": "8GbwASqdpw\u2026",
+          "stake_msol": 8.58,
+          "commission_pct": 0
+        },
+        {
+          "vote_account": "9QU2QSxhb2\u2026",
+          "stake_msol": 7.95,
+          "commission_pct": 7
+        },
+        {
+          "vote_account": "CvSb7wdQAF\u2026",
+          "stake_msol": 7.3,
+          "commission_pct": 5
+        },
+        {
+          "vote_account": "DumiCKHVqo\u2026",
+          "stake_msol": 6.57,
+          "commission_pct": 0
+        }
+      ],
+      "median_commission_pct": 5
     },
     "defillama_history": {
       "days": [
-        [
-          1779926400,
-          5308496859
-        ],
         [
           1780012800,
           5244620911
@@ -502,23 +568,111 @@
         ],
         [
           1787616000,
-          5578601715
+          5601949701
         ]
       ],
-      "tvl_90d_ago_usd": 5308496859,
-      "tvl_now_usd": 5578601715,
-      "change_90d_pct": 5.1
+      "tvl_90d_ago_usd": 5244620911,
+      "tvl_now_usd": 5601949701,
+      "change_90d_pct": 6.8,
+      "daily": [
+        [
+          1787616000,
+          5601949701
+        ]
+      ]
+    },
+    "defillama_dexs": {
+      "volume_24h_usd": 2948913720.19,
+      "volume_7d_usd": 21600695398.280006,
+      "volume_30d_usd": 57653466453.57999,
+      "all_time_usd": 3056643835553.4497,
+      "change_1d_pct": -1.58,
+      "change_7d_pct": 60.42,
+      "change_30d_pct": null
+    },
+    "defillama_fees": {
+      "fees_24h_usd": 14076810.839999998,
+      "fees_30d_usd": 284138947.0799994,
+      "change_1d_pct": -2.86
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16308415827
+      "solana_usd_pegged_stables": 16265154148
     },
+    "news": [
+      {
+        "title": "Solana transactions hit record 4.2B as SOL rallies 40%",
+        "link": "https://cointelegraph.com/news/solana-record-transactions-rwa-sol-price?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 25 Aug 2026 18:08:58 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana cuts blockchain slot time to 350 milliseconds",
+        "link": "https://cointelegraph.com/news/solana-cuts-blockchain-slot-time-350-milliseconds?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 21 Aug 2026 13:45:13 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "FalconX, Interstice Connect Canton to Ethereum, Solana and Robinhood Chain",
+        "link": "https://cointelegraph.com/news/interstice-falconx-cross-chain-swap-engine-canton-solana-ethereum-robinhood-chain?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 18 Aug 2026 20:45:48 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Israel\u2019s largest bank taps Galaxy to offer Bitcoin, Ether, Solana trading",
+        "link": "https://cointelegraph.com/news/israels-largest-bank-taps-galaxy-to-offer-bitcoin-ether-and-solana-trading?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 14 Aug 2026 15:41:49 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana\u2019s fee overhaul increases burn and makes resource hogs pay",
+        "link": "https://cointelegraph.com/magazine/solana-wants-its-biggest-resource-hogs-to-pay-more?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 14 Aug 2026 13:30:00 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "MoneyGram expands crypto cash ramps to Solana",
+        "link": "https://cointelegraph.com/news/moneygram-expands-crypto-cash-ramps-to-solana?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 11 Aug 2026 19:53:02 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      }
+    ],
+    "upcoming_upgrades": [
+      {
+        "name": "Alpenglow",
+        "status": "in development",
+        "note": "Consensus overhaul replacing TowerBFT with Votor+Rotor: ~100-150ms finality target.",
+        "source": "https://solana.com/news/alpenglow-consensus",
+        "last_reviewed": "2026-08-25"
+      },
+      {
+        "name": "SIMD-525 (multiple concurrent block-building leaders)",
+        "status": "governance / rollout tracking",
+        "note": "Aims to reduce leader-collision MEV by allowing several leaders per slot.",
+        "source": "https://github.com/solana-foundation/solana-improvement-documents",
+        "last_reviewed": "2026-08-25"
+      },
+      {
+        "name": "SIMD-228-style market-based fee debates",
+        "status": "watch",
+        "note": "Ongoing governance work on priority-fee markets after SIMD-228's narrow rejection.",
+        "source": "https://github.com/solana-foundation/solana-improvement-documents",
+        "last_reviewed": "2026-08-25"
+      }
+    ],
     "self_observed_trend": {
       "since": "2026-08-25T23:16Z",
-      "snapshots_tracked": 3,
+      "snapshots_tracked": 7,
       "tvl_then_usd": 5578629606,
-      "tvl_change_pct": 0.0,
+      "tvl_change_pct": 0.42,
       "price_then_usd": 97.14,
-      "price_change_pct": -0.19
+      "price_change_pct": -0.39
     }
-  }
+  },
+  "anomalies": [
+    {
+      "metric": "validator delinquency",
+      "severity": "warning",
+      "detail": "8/695 validators delinquent (1.15% > 1%)."
+    }
+  ]
 }

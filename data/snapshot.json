@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-26T03:17:01.398083+00:00",
+  "generated_utc": "2026-08-26T03:23:52.485890+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
@@ -129,25 +129,25 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 97.12,
-      "market_cap_usd": 56654807844,
+      "price_usd": 97.07,
+      "market_cap_usd": 56588183917,
       "rank": 7,
-      "change_24h_pct": -4.24519,
+      "change_24h_pct": -4.45978,
       "change_7d_pct": 26.7,
       "change_30d_pct": 27.2
     },
     "solana_rpc": {
       "epoch": 1022,
-      "epoch_progress_pct": 63.0,
-      "block_height": 419824683,
-      "absolute_slot": 441776150,
-      "total_transactions": 541909929014,
-      "tps_total": 3727.0,
-      "tps_non_vote": 1854.0,
+      "epoch_progress_pct": 63.26,
+      "block_height": 419825811,
+      "absolute_slot": 441777278,
+      "total_transactions": 541911439218,
+      "tps_total": 3662.0,
+      "tps_non_vote": 1788.0,
       "slot_time_ms": 364,
       "health": "ok",
-      "supply_circulating_sol": 583375449,
-      "supply_total_sol": 632859310,
+      "supply_circulating_sol": 583375445,
+      "supply_total_sol": 632859306,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_min_micro_lamports": 0
     },
@@ -669,11 +669,11 @@
     ],
     "self_observed_trend": {
       "since": "2026-08-25T23:16Z",
-      "snapshots_tracked": 9,
+      "snapshots_tracked": 12,
       "tvl_then_usd": 5578629606,
       "tvl_change_pct": 0.29,
       "price_then_usd": 97.14,
-      "price_change_pct": -0.02
+      "price_change_pct": -0.07
     }
   },
   "anomalies": [

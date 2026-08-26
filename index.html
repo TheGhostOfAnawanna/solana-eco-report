@@ -135,8 +135,30 @@ j('./data/snapshot.json').then(snap=>{
 // ---- live sections (fresh on every page load) ----
 // We'll try to fetch live data, but if any fails we'll fall back to snapshot data.
 j('./data/snapshot.json').then(snap=>{
-  let liveData = null;
+  // Initialize fallback data from snapshot
+  let liveData = {
+    chains: snap.sources.defillama_chains.top10_by_tvl?.map(item => ({ name: item.chain, tvl: item.tvl_usd })) || [],
+    cg: snap.sources.coingecko_sol ? [{
+      current_price: snap.sources.coingecko_sol.price_usd,
+      market_cap: snap.sources.coingecko_sol.market_cap_usd,
+      market_cap_rank: snap.sources.coingecko_sol.rank,
+      price_change_percentage_24h_in_currency: snap.sources.coingecko_sol.change_24h_pct
+    }] : [],
+    epoch: {
+      epoch: snap.sources.solana_rpc.epoch,
+      slotIndex: 0, // unknown
+      slotsInEpoch: 0, // unknown
+      blockHeight: snap.sources.solana_rpc.blockHeight
+    },
+    samples: [
+      { samplePeriodSecs: 0, numTransactions: 0, numNonVoteTransactions: 0 }
+    ],
+    hist: snap.sources.defillama_history?.daily?.map(day => ({ date: day[0], tvl: day[1] })) || []
+  };
+  
   let liveError = null;
+  
+  // Try to fetch live data
   Promise.all([
     j('https://api.llama.fi/v2/chains'),
     j('https://api.coingecko.com/api/v3/coins/markets?ids=solana&vs_currency=usd&price_change_percentage=24h'),
@@ -144,58 +166,84 @@ j('./data/snapshot.json').then(snap=>{
     rpc('getRecentPerformanceSamples',[8]),
     j('https://api.llama.fi/v2/historicalChainTvl/Solana')
   ]).then(([chainsResponse, cgResponse, epochResponse, samplesResponse, histResponse])=>{
-    liveData = { chains: chainsResponse, cg: cgResponse, epoch: epochResponse, samples: samplesResponse, hist: histResponse };
+    // Update liveData with actual fetched data
+    liveData = {
+      chains: chainsResponse,
+      cg: cgResponse,
+      epoch: epochResponse,
+      samples: samplesResponse,
+      hist: histResponse
+    };
+    liveError = null; // Clear error if fetch succeeds
   }).catch(err=>{
     liveError = err;
-    // Fallback to snapshot data
-    liveData = {
-      chains: snap.sources.defillama_chains.top10_by_tvl?.map(item => ({ name: item.chain, tvl: item.tvl_usd })) || [],
-      cg: snap.sources.coingecko_sol ? [{
-        current_price: snap.sources.coingecko_sol.price_usd,
-        market_cap: snap.sources.coingecko_sol.market_cap_usd,
-        market_cap_rank: snap.sources.coingecko_sol.rank,
-        price_change_percentage_24h_in_currency: snap.sources.coingecko_sol.change_24h_pct
-      }] : [],
-      epoch: {
-        epoch: snap.sources.solana_rpc.epoch,
-        slotIndex: 0, // unknown
-        slotsInEpoch: 0, // unknown
-        blockHeight: snap.sources.solana_rpc.blockHeight
-      },
-      samples: [
-        { samplePeriodSecs: 0, numTransactions: 0, numNonVoteTransactions: 0 }
-      ],
-      hist: snap.sources.defillama_history?.daily?.map(day => ({ date: day[0], tvl: day[1] })) || []
-    };
+    // Keep fallback data from snapshot
+    console.warn('Live data fetch failed, using snapshot fallback:', err);
   }).finally(()=>{
-    if (!liveData) {
-      document.getElementById('meta').textContent = 'Live section error: no data';
+    // Render with whatever data we have (live or fallback)
+    renderLiveSection(liveData, liveError);
+  });
+}).catch(e=>{document.getElementById('meta').textContent='Live section error: '+e});
+
+function renderLiveSection(data, error) {
+  const { chains, cg, epoch, samples, hist } = data;
+  const sol = cg[0] || {};
+  
+  // Handle chains data safely
+  const topChains = chains && Array.isArray(chains) 
+    ? chains.filter(c=>c && c.tvl>0).sort((a,b)=>b.tvl-a.tvl) 
+    : [];
+  
+  document.getElementById('chains').innerHTML='<tr><th>#</th><th>Chain</th><th style=text-align:right>TVL</th></tr>'+
+    topChains.slice(0,10).map((c,i)=>`<tr><td>${i+1}</td><td>${c && c.name ? c.name : 'Unknown'}${c && c.name==='Solana'?' 🟣':''}</td><td class=num>${fmt(c && c.tvl)}</td></tr>`).join('');
+  
+  // Handle samples data safely
+  const secs = samples && Array.isArray(samples) 
+    ? samples.reduce((a,s)=>a+(s && s.samplePeriodSecs||0),0) 
+    : 0;
+    
+  const tps = secs 
+    ? Math.round(samples.reduce((a,s)=>a+(s && s.numTransactions||0),0)/secs) 
+    : 0;
+    
+  const nv = secs 
+    ? Math.round(samples.reduce((a,s)=>a+(s && s.numNonVoteTransactions||0),0)/secs) 
+    : 0;
+    
+  const epPct = epoch && epoch.slotIndex && epoch.slotsInEpoch 
+    ? (100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(1) 
+    : (snap && snap.sources && snap.sources.solana_rpc && snap.sources.solana_rpc.epoch_progress_pct ?? 0);
+    
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
+    `<div class="bar" title="epoch progress"><i style="width:${epPct}%"></i></div>`);
+    
+  document.getElementById('meta').innerHTML=
+    `<span class="badge">● LIVE</span> rendered ${new Date().toUTCString()} · epoch <b>${epoch && epoch.epoch || '?'}</b> (${epPct}%) · <b>${nv.toLocaleString()}</b> tx/s non-vote (${tps.toLocaleString()} total) · block height ${Number(epoch && epoch.blockHeight).toLocaleString()} · SOL $${(sol && sol.current_price||0).toLocaleString()} <span class="${sol && sol.price_change_percentage_24h>=0?'up':'down'}">${pct(sol && sol.price_change_percentage_24h||0)} 24h</span>`;
+    
+  // Handle chart data safely
+  if(!hist||!Array.isArray(hist)||hist.length<2){
+    document.getElementById('chart').innerHTML='<div class="card s">no chart data</div>';
+    return;
+  }
+  
+  try {
+    const W=1040,H=220,P=44;
+    const vals=hist.map(p=>p && p.tvl || 0).filter(v=>v!==null && v!==undefined);
+    if (vals.length < 2) {
+      document.getElementById('chart').innerHTML='<div class="card s">insufficient chart data</div>';
       return;
     }
-    const { chains, cg, epoch, samples, hist } = liveData;
-    const sol = cg[0] || {};
-    const top = chains.filter(c=>c.tvl>0).sort((a,b)=>b.tvl-a.tvl);
-    document.getElementById('chains').innerHTML='<tr><th>#</th><th>Chain</th><th style=text-align:right>TVL</th></tr>'+
-      top.slice(0,10).map((c,i)=>`<tr><td>${i+1}</td><td>${c.name}${c.name==='Solana'?' 🟣':''}</td><td class=num>${fmt(c.tvl)}</td></tr>`).join('');
-    const secs = samples.reduce((a,s)=>a+(s.samplePeriodSecs||0),0);
-    const tps = secs ? Math.round(samples.reduce((a,s)=>a+(s.numTransactions||0),0)/secs) : 0;
-    const nv = secs ? Math.round(samples.reduce((a,s)=>a+(s.numNonVoteTransactions||0),0)/secs) : 0;
-    const epPct = epoch.slotIndex && epoch.slotsInEpoch ? (100*epoch.slotIndex/epoch.slotsInEpoch).toFixed(1) : (snap.sources.solana_rpc?.epoch_progress_pct ?? 0);
-    document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
-      `<div class="bar" title="epoch progress"><i style="width:${epPct}%"></i></div>`);
-    document.getElementById('meta').innerHTML=
-      `<span class="badge">● LIVE</span> rendered ${new Date().toUTCString()} · epoch <b>${epoch.epoch}</b> (${epPct}%) · <b>${nv.toLocaleString()}</b> tx/s non-vote (${tps.toLocaleString()} total) · block height ${Number(epoch.blockHeight).toLocaleString()} · SOL $${(sol.current_price||0).toLocaleString()} <span class="${sol.price_change_percentage_24h>=0?'up':'down'}">${pct(sol.price_change_percentage_24h||0)} 24h</span>`;
-    if(!hist||hist.length<2){
-      document.getElementById('chart').innerHTML='<div class="card s">no chart data</div>';
-      return;
-    }
-    const W=1040,H=220,P=44,vals=hist.map(p=>p.tvl),mn=Math.min(...vals),mx=Math.max(...vals);
-    const x=i=>P+i*(W-2*P)/(hist.length-1), y=v=>H-P-(v-mn)*(H-2*P)/((mx-mn)||1);
-    const pts=hist.map((p,i)=>`${x(i).toFixed(1)},${y(p.tvl).toFixed(1)}`).join(' ');
+    
+    const mn=Math.min(...vals);
+    const mx=Math.max(...vals);
+    const x=i=>P+i*(W-2*P)/(hist.length-1);
+    const y=v=>H-P-(v-mn)*(H-2*P)/((mx-mn)||1);
+    const pts=hist.map((p,i)=>`${x(i).toFixed(1)},${y(p && p.tvl || 0).toFixed(1)}`).filter(Boolean).join(' ');
     const area=`${P},${H-P} ${pts} ${x(hist.length-1)},${H-P}`;
     const grid=[0,.25,.5,.75,1].map(t=>{const gy=y(mn+t*(mx-mn));return `<line x1=${P} x2=${W-P} y1=${gy} y2=${gy} stroke="#1c2942" stroke-dasharray="3 4"/><text x=6 y=${gy+4} fill="#64748b" font-size=11>${fmt(mn+t*(mx-mn))}</text>`}).join('');
-    const d0=hist[0].date*1000,dN=hist[hist.length-1].date*1000;
-    const ticks=[0,30,60,hist.length-1].map(i=>`<text x=${x(i)} y=${H-P+18} fill="#64748b" font-size=11 text-anchor=middle>${new Date(hist[i].date*1000).toISOString().slice(0,10)}</text>`).join('');
+    const d0=hist[0].date*1000;
+    const dN=hist[hist.length-1].date*1000;
+    const ticks=[0,30,60,hist.length-1].map(i=>`<text x=${x(i)} y=${H-P+18} fill="#64748b" font-size=11 text-anchor=middle>${new Date(hist[i] && hist[i].date*1000).toISOString().slice(0,10)}</text>`).join('');
     const chg=(100*(vals[vals.length-1]-vals[0])/vals[0]);
     document.getElementById('chart').innerHTML=
      `<svg viewBox="0 0 ${W} ${H}" class="chart" preserveAspectRatio="xMidYMid meet">${grid}
@@ -205,7 +253,10 @@ j('./data/snapshot.json').then(snap=>{
        <circle cx=${x(hist.length-1)} cy=${y(vals[vals.length-1])} r=4 fill="#14F195"/>
        <text x=${W-P} y=20 fill="#94a3b8" font-size=13 text-anchor=end>Solana chain TVL · now ${fmt(vals[vals.length-1])} · 90d <tspan class="${chg>=0?'up':'down'}" fill="${chg>=0?'#14F195':'#ef4444'}">${pct(chg)}</tspan></text>
        ${ticks}</svg>`;
-  });
-}).catch(e=>{document.getElementById('meta').textContent='Live section error: '+e});
+  } catch(chartError) {
+    console.error('Chart rendering error:', chartError);
+    document.getElementById('chart').innerHTML='<div class="card s">chart error</div>';
+  }
+}
 </script>
 </body></html>

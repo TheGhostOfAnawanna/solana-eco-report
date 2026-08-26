@@ -1,8 +1,65 @@
-# Solana Ecosystem Auto-Updating Report & Dashboard
+# Solana Ecosystem Auto-Updating Report & Dashboard — Built & Self-Maintained by an Autonomous AI Agent
 
-Live snapshot of the Solana ecosystem: chain TVL rank, top protocols by per-chain TVL, SOL market data.
+**This dashboard is BUILT AND SELF-MAINTAINED BY AN AUTONOMOUS AI AGENT** running on a Raspberry Pi, with $0 infrastructure cost and zero human intervention in the refresh loop. Every update is a git commit — see commit history for proof of automation.
 
-- **Data sources:** DeFiLlama public API + CoinGecko free tier (no keys, no paid services)
-- **Auto-update:** dashboard queries DeFiLlama/CoinGecko/Solana public RPC LIVE on every page load (client-side, no backend)
-- **Dashboard:** `index.html` renders live in-browser (TVL tables, SOL market data, epoch progress, real TPS from recent performance samples)
-- **Report:** human-readable `data/report.md` regenerated each run
+Live snapshot of the Solana ecosystem: chain TVL rank, top protocols by per-chain TVL, SOL market data, validator economics, DEX volume, ecosystem news, and anomaly detection.
+
+## 📊 Data Sources & Integration
+- **DeFiLlama public API** – chain TVL, protocol TVL (Solana), historical TVL, DEX volume, ecosystem fees, stablecoin supply.
+- **CoinGecko free tier** – SOL price, market cap, 24h/7d/30d change, rank.
+- **Solana public RPC** – epoch info, block height, transaction throughput (TPS total & non-vote), slot time, validator vote accounts, supply, prioritization fees, health.
+- **CoinDesk & Cointelegraph RSS feeds** – Solana/SOL-related headlines (parsed via stdlib XML, no API keys).
+- **Curated upcoming upgrades** – dated editorial notes (Alpenglow, SIMD-525, fee-market debates) with source URLs and review dates.
+
+All APIs are free, require no keys, and are called via Python stdlib only (`urllib.request`, `xml.etree`). No paid services anywhere in the stack.
+
+## ⚙️ Automation Strategy
+- **Pipeline (`pipeline.py`)** – Python script that fetches all data sources, builds a JSON snapshot (`data/snapshot.json`) and a human‑readable Markdown report (`data/report.md`).
+- **Self‑hosted refresh** – runs on a Raspberry Pi via cron every 6 hours (`update.sh` → `pipeline.py` → git commit + push).
+- **Git‑based proof of automation** – each refresh creates a new commit; the commit history is the immutable audit trail showing the agent’s work.
+- **Hybrid live+snapshot architecture** – headline metrics (SOL price, TPS, epoch progress) are fetched live on every page load for freshness; all other data (tables, charts, news, upgrades) renders from the latest committed snapshot (`data/snapshot.json`), guaranteeing the dashboard never shows a blank state even if a live request fails.
+- **Zero‑cost infrastructure** – runs on a Raspberry Pi with only system‑provided software (Python, chromium, git). No cloud bills, no API‑key subscriptions, no paid hosting.
+
+## 🚨 Anomaly Detection Approach
+Rule‑based scanning runs inside `pipeline.py` after each snapshot. Alerts are severity‑graded and displayed in a dashboard banner:
+- **Validator delinquency** – alerts if >1% delinquent (warning) or >2.5% (alert).
+- **Non‑vote TPS** – flags if <200 tx/s (warning) or >2.5σ from rolling mean (warning/alert).
+- **Slot time** – warning if average slot time >500 ms.
+- **SOL price 24h change** – warning if |Δ| ≥8%, alert if |Δ| ≥12%.
+- **Chain TVL day‑over‑day** – warning if |Δ| ≥5%, alert if |Δ| ≥10%.
+- **DEX volume 24h change** – info if |Δ| ≥25%.
+- **RPC health** – alert if `getHealth` returns non‑ok.
+Each anomaly includes metric, severity, and a plain‑language detail.
+
+## 🛠️ Setup Instructions & Metric Interpretation
+### Local run (no cost)
+```bash
+# Clone and run once
+git clone https://github.com/TheGhostOfAnawanna/solana-eco-report
+cd solana-eco-report
+python3 pipeline.py          # produces data/snapshot.json + data/report.md
+python3 -m http.server 8080  # serves dashboard at http://localhost:8080
+```
+### How to read each metric
+- **SOL price** – current market price in USD (CoinGecko). 24h/7d/30d % change shown.
+- **Market cap** – total USD value of circulating SOL.
+- **Chain TVL** – total USD value locked in Solana smart contracts (DeFiLlama). Rank among all chains.
+- **DEX volume** – USD value traded on Solana decentralized exchanges in the last 24h (DeFiLlama).
+- **Ecosystem fees** – total fees paid on Solana (DeFiLlama) as a proxy for network revenue.
+- **Stablecoins** – USD‑pegged stablecoin supply on Solana (USDC, USDT, etc.).
+- **Non‑vote TPS** – transactions per second excluding vote transactions (real user activity).
+- **Slot time** – average time to produce a slot (target ~400ms).
+- **Validators** – active/delinquent counts, total stake, stake concentration (top 10/20), median commission.
+- **Priority fee** – mean prioritization fee in micro‑lamports (network congestion signal).
+- **Epoch progress** – % through current epoch.
+- **90‑day TVL chart** – historical trend; green/red overlay shows % change over period.
+- **Top protocols** – ranked by Solana‑specific TVL (DeFiLlama).
+- **News headlines** – latest Solana/SOL mentions from CoinDesk & Cointelegraph RSS.
+- **Upcoming upgrades** – dated, sourced notes on forthcoming network changes (Alpenglow, SIMD‑525, etc.).
+- **Anomaly banner** – red/orange/blue boxes flagging potential issues per rules above.
+
+**Live URL:** https://theghostofanawanna.github.io/solana-eco-report/  
+**Screenshot evidence:** see `~/workspace/evidence/superteam/` for before/after live‑render verification.
+
+---
+*Auto‑generated by `pipeline.py` (Python stdlib only, zero paid APIs). Refreshed every 6h via cron; every refresh is a git commit — see commit history for proof.*

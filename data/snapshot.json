@@ -1,50 +1,50 @@
 {
-  "generated_utc": "2026-08-29T03:17:01.469933+00:00",
+  "generated_utc": "2026-08-29T09:17:01.257427+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5871696994.267224,
+      "solana_tvl_usd": 5851358002.891794,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 48844914426.977425
+          "tvl_usd": 48704944079.20962
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5871696994.267224
-        },
-        {
-          "chain": "Base",
-          "tvl_usd": 5481006240.989767
+          "tvl_usd": 5851358002.891794
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5476419967.513562
+          "tvl_usd": 5504835989.81818
+        },
+        {
+          "chain": "Base",
+          "tvl_usd": 5469251607.404131
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5227777844.200012
+          "tvl_usd": 5211975861.53463
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4066204870.891697
+          "tvl_usd": 4051508246.3307242
         },
         {
           "chain": "Provenance",
-          "tvl_usd": 1847453749.6093383
+          "tvl_usd": 1847444012.4893522
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1504537461.1211689
+          "tvl_usd": 1512071725.2503912
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1406534111.4284437
+          "tvl_usd": 1398883445.4117067
         },
         {
           "chain": "Monad",
-          "tvl_usd": 954795852.174075
+          "tvl_usd": 952194015.4647537
         }
       ]
     },
@@ -53,32 +53,32 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1589888864.8361118,
+          "tvl_usd": 1580459538.1618135,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1251432882.266469,
+          "tvl_usd": 1246708593.3544621,
           "category": "Lending"
         },
         {
           "name": "Raydium AMM",
-          "tvl_usd": 1121195147.6164734,
+          "tvl_usd": 1119771354.1637943,
           "category": "Dexs"
         },
         {
           "name": "Jupiter Lend",
-          "tvl_usd": 1089474863.4507809,
+          "tvl_usd": 1084300373.612224,
           "category": "Lending"
         },
         {
           "name": "Binance Staked SOL",
-          "tvl_usd": 1072517751.5062433,
+          "tvl_usd": 1066103111.1114001,
           "category": "Liquid Staking"
         },
         {
           "name": "Jito Liquid Staking",
-          "tvl_usd": 1047571588.2994814,
+          "tvl_usd": 1039493958.321933,
           "category": "Liquid Staking"
         },
         {
@@ -88,73 +88,73 @@
         },
         {
           "name": "Jupiter Perpetual Exchange",
-          "tvl_usd": 768434564.3362974,
+          "tvl_usd": 765530302.8987083,
           "category": "Derivatives"
         },
         {
           "name": "Jupiter Staked SOL",
-          "tvl_usd": 539270291.6261904,
+          "tvl_usd": 537433871.2558073,
           "category": "Liquid Staking"
         },
         {
           "name": "xStocks",
-          "tvl_usd": 431791059.8040611,
+          "tvl_usd": 432508318.1411242,
           "category": "RWA"
         },
         {
           "name": "Marinade Native",
-          "tvl_usd": 425220877.2269509,
+          "tvl_usd": 422565469.23566717,
           "category": "Staking Pool"
         },
         {
           "name": "Sentora",
-          "tvl_usd": 361089954.6693448,
+          "tvl_usd": 361108076.0373115,
           "category": "Risk Curators"
         },
         {
           "name": "PumpSwap",
-          "tvl_usd": 351002862.5350134,
+          "tvl_usd": 346755160.1376614,
           "category": "Dexs"
         },
         {
           "name": "Drift Staked SOL",
-          "tvl_usd": 292815167.1862622,
+          "tvl_usd": 291064940.6364372,
           "category": "Liquid Staking"
         },
         {
           "name": "OnRe",
-          "tvl_usd": 284613416.89224255,
+          "tvl_usd": 284636837.2986481,
           "category": "RWA"
         }
       ]
     },
     "coingecko_sol": {
-      "price_usd": 103.95,
-      "market_cap_usd": 60726958624,
+      "price_usd": 103.46,
+      "market_cap_usd": 60435804194,
       "rank": 7,
-      "change_24h_pct": -2.12574,
-      "change_7d_pct": 10.8,
-      "change_30d_pct": 40.5
+      "change_24h_pct": -2.88625,
+      "change_7d_pct": 9.5,
+      "change_30d_pct": 41.0
     },
     "solana_rpc": {
       "epoch": 1024,
-      "epoch_progress_pct": 31.05,
-      "block_height": 420550093,
-      "absolute_slot": 442502147,
-      "total_transactions": 542963149513,
-      "tps_total": 3787.0,
-      "tps_non_vote": 1621.0,
-      "slot_time_ms": 316,
+      "epoch_progress_pct": 46.85,
+      "block_height": 420618288,
+      "absolute_slot": 442570378,
+      "total_transactions": 543041997023,
+      "tps_total": 3704.0,
+      "tps_non_vote": 1525.0,
+      "slot_time_ms": 315,
       "health": "ok",
-      "supply_circulating_sol": 584161890,
-      "supply_total_sol": 633079430,
+      "supply_circulating_sol": 584161683,
+      "supply_total_sol": 633079223,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_min_micro_lamports": 0
     },
     "validators": {
-      "active": 687,
-      "delinquent": 10,
-      "delinquency_pct": 1.43,
+      "active": 688,
+      "delinquent": 9,
+      "delinquency_pct": 1.29,
       "total_stake_sol": 436134289,
       "top10_stake_share_pct": 24.2,
       "top20_stake_share_pct": 35.5,
@@ -568,24 +568,24 @@
         ],
         [
           1787875200,
-          5948551747
+          6012977669
         ],
         [
           1787961600,
-          5870550067
+          5853197875
         ]
       ],
       "tvl_90d_ago_usd": 5400842678,
-      "tvl_now_usd": 5870550067,
-      "change_90d_pct": 8.7,
+      "tvl_now_usd": 5853197875,
+      "change_90d_pct": 8.4,
       "daily": [
         [
           1787875200,
-          5948551747
+          6012977669
         ],
         [
           1787961600,
-          5870550067
+          5853197875
         ]
       ]
     },
@@ -593,7 +593,7 @@
       "volume_24h_usd": 2615026955.2200003,
       "volume_7d_usd": 20951249902.54,
       "volume_30d_usd": 60861970949.88999,
-      "all_time_usd": 3066473480659.21,
+      "all_time_usd": 3066432520983.21,
       "change_1d_pct": -29.33,
       "change_7d_pct": -27.38,
       "change_30d_pct": null
@@ -604,26 +604,44 @@
       "change_1d_pct": -5.24
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16279698125
+      "solana_usd_pegged_stables": 16275784882
     },
     "news": [
       {
-        "title": "Solana vote to double disinflation passes by a hair in dramatic finish",
-        "link": "https://www.coindesk.com/tech/2026/08/28/solana-vote-to-double-disinflation-passes-by-a-hair-in-dramatic-finish",
-        "published": "Fri, 28 Aug 2026 16:12:45 +0000",
-        "feed": "CoinDesk"
+        "title": "Solana validators approve proposal to accelerate SOL disinflation",
+        "link": "https://cointelegraph.com/news/solana-validators-approve-proposal-to-accelerate-sol-disinflation?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 28 Aug 2026 19:53:12 +0000",
+        "feed": "Cointelegraph (Solana tag)"
       },
       {
-        "title": "Solana\u2019s faster disinflation plan leads vote as $800K burn proposal trails",
-        "link": "https://www.coindesk.com/tech/2026/08/28/solana-s-faster-supply-cuts-lead-vote-while-usd800-000-daily-burn-plan-trails",
-        "published": "Fri, 28 Aug 2026 06:22:10 +0000",
-        "feed": "CoinDesk"
+        "title": "Charles Schwab adda Solana, Avalanche and Chainlink to nascent crypto platform",
+        "link": "https://cointelegraph.com/news/charles-schwab-to-add-solana-avalanche-and-chainlink-to-crypto-platform?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Thu, 27 Aug 2026 16:13:10 +0000",
+        "feed": "Cointelegraph (Solana tag)"
       },
       {
-        "title": "Bitcoin under $80,000, solana leads majors higher before Warsh's Jackson Hole debut",
-        "link": "https://www.coindesk.com/markets/2026/08/28/bitcoin-holds-usd80-000-solana-leads-majors-higher-before-warsh-s-jackson-hole-debut",
-        "published": "Fri, 28 Aug 2026 04:40:52 +0000",
-        "feed": "CoinDesk"
+        "title": "Solana transactions hit record 4.2B as SOL rallies 40%",
+        "link": "https://cointelegraph.com/news/solana-record-transactions-rwa-sol-price?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 25 Aug 2026 18:08:58 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana cuts blockchain slot time to 350 milliseconds",
+        "link": "https://cointelegraph.com/news/solana-cuts-blockchain-slot-time-350-milliseconds?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 21 Aug 2026 13:45:13 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "FalconX, Interstice Connect Canton to Ethereum, Solana and Robinhood Chain",
+        "link": "https://cointelegraph.com/news/interstice-falconx-cross-chain-swap-engine-canton-solana-ethereum-robinhood-chain?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 18 Aug 2026 20:45:48 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Israel\u2019s largest bank taps Galaxy to offer Bitcoin, Ether, Solana trading",
+        "link": "https://cointelegraph.com/news/israels-largest-bank-taps-galaxy-to-offer-bitcoin-ether-and-solana-trading?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 14 Aug 2026 15:41:49 +0000",
+        "feed": "Cointelegraph (Solana tag)"
       }
     ],
     "upcoming_upgrades": [
@@ -651,18 +669,18 @@
     ],
     "self_observed_trend": {
       "since": "2026-08-25T23:16Z",
-      "snapshots_tracked": 25,
+      "snapshots_tracked": 26,
       "tvl_then_usd": 5578629606,
-      "tvl_change_pct": 5.25,
+      "tvl_change_pct": 4.89,
       "price_then_usd": 97.14,
-      "price_change_pct": 7.01
+      "price_change_pct": 6.51
     }
   },
   "anomalies": [
     {
       "metric": "validator delinquency",
       "severity": "warning",
-      "detail": "10/697 validators delinquent (1.43% > 1%)."
+      "detail": "9/697 validators delinquent (1.29% > 1%)."
     },
     {
       "metric": "DEX volume 24h",

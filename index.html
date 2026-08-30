@@ -76,6 +76,11 @@ footer a{color:var(--dim)}
 <ul class=news id=upg><li class=s>loading snapshot…</li></ul>
 
 <footer id=foot>
+<div style="margin-bottom:.6rem;padding:.5rem .8rem;border:1px solid var(--line);background:#0f1933;border-radius:8px;display:inline-block">
+<b style="color:var(--sol2)">Built & self-maintained autonomously by an AI agent on a Raspberry Pi</b> — $0 infra, no human in the refresh loop.
+<a href=https://github.com/TheGhostOfAnawanna/solana-eco-report/commits/main style="color:var(--sol1)">Commit history = proof</a>.
+</div>
+<br>
 Sources: Solana public JSON-RPC · DeFiLlama public API · CoinGecko free tier · Cointelegraph/CoinDesk RSS.
 No API keys, no paid services. Pipeline refreshes every 6h via cron — every run is a git commit:
 <a href=https://github.com/TheGhostOfAnawanna/solana-eco-report/commits/main>commit history = auto-update proof</a>.
@@ -229,7 +234,13 @@ function renderLiveSection(data, error, snap){
   document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
     '<div class="bar" title="epoch progress"><i style="width:'+epPct+'%"></i></div>');
     
-  var metaInner = '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+' total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL '+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
+  var snapTs = (snap.generated_utc ? new Date(snap.generated_utc) : null);
+  var ageMin = snapTs ? Math.max(0, Math.round((Date.now() - snapTs.getTime()) / 60000)) : null;
+  var nextMin = (ageMin != null) ? Math.max(0, 360 - (ageMin % 360)) : null;
+  var ageStr = (ageMin != null) ? (ageMin < 60 ? ageMin + ' min ago' : Math.floor(ageMin/60) + 'h ' + (ageMin%60) + 'm ago') : '—';
+  var nextStr = (nextMin != null) ? (nextMin < 60 ? '~' + nextMin + 'm' : '~' + Math.floor(nextMin/60) + 'h ' + (nextMin%60) + 'm') : '—';
+  var freshness = '<span class="badge" title="Snapshot generated '+ (snap.generated_utc||'?') +'">Last updated ' + ageStr + ' · next refresh in ' + nextStr + '</span> ';
+  var metaInner = freshness + '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+' total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL '+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
   document.getElementById('meta').innerHTML=metaInner;
     
   // Handle chart data safely

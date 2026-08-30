@@ -126,7 +126,7 @@ def detect_anomalies(snap, prev_snaps):
     # DEX volume swing
     dv = d.get("defillama_dexs", {}).get("change_1d_pct")
     if dv is not None and abs(dv) >= 25:
-        add("DEX volume 24h", "info", f"DDEX volume changed {dv:+.1f}% in 24h.")
+        add("DEX volume 24h", "info", f"DEX volume changed {dv:+.1f}% in 24h.")
 
     # RPC health
     if net.get("health") and net["health"] != "ok":

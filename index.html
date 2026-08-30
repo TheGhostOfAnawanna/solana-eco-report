@@ -114,7 +114,7 @@ j('./data/snapshot.json').then(function(snap){
     ['Slot time', net.slot_time_ms?net.slot_time_ms+' ms':'—', 'avg recent samples'],
     ['Validators', val.active+' active', val.delinquent+' delinquent ('+val.delinquency_pct+'%)'],
     ['Circulating supply', net.supply_circulating_sol?Number(net.supply_circulating_sol).toLocaleString()+' SOL':'—', 'of '+Number(net.supply_total_sol||0).toLocaleString()+' total'],
-    ['Priority fee mean', net.priority_fee_mean_micro_lamports+' µL', 'base fee fixed 5000 lamports'],
+    ['Priority fee mean', (net.priority_fee_mean_micro_lamports!=null&&net.priority_fee_mean_micro_lamports>0)?net.priority_fee_mean_micro_lamports.toLocaleString()+' µL':'<1 µL', 'base fee fixed 5000 lamports'],
     ['Snapshot', (snap.generated_utc||'').slice(0,16)+'Z', 'committed by pipeline'],
   ].map(function(kvss){
     var k=kvss[0], v=kvss[1], s2=kvss[2];

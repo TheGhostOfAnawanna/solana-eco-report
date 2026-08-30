@@ -240,7 +240,11 @@ function renderLiveSection(data, error, snap){
   var ageStr = (ageMin != null) ? (ageMin < 60 ? ageMin + ' min ago' : Math.floor(ageMin/60) + 'h ' + (ageMin%60) + 'm ago') : '—';
   var nextStr = (nextMin != null) ? (nextMin < 60 ? '~' + nextMin + 'm' : '~' + Math.floor(nextMin/60) + 'h ' + (nextMin%60) + 'm') : '—';
   var freshness = '<span class="badge" title="Snapshot generated '+ (snap.generated_utc||'?') +'">Last updated ' + ageStr + ' · next refresh in ' + nextStr + '</span> ';
-  var metaInner = freshness + '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+' total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL '+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
+  var snapBh = (snap&&snap.sources&&snap.sources.solana_rpc&&snap.sources.solana_rpc.block_height) ? snap.sources.solana_rpc.block_height : null;
+  var snapEpoch = (snap&&snap.sources&&snap.sources.solana_rpc&&snap.sources.solana_rpc.epoch) ? snap.sources.solana_rpc.epoch : null;
+  var displayEpoch = ((epoch&&epoch.epoch)!==undefined) ? epoch.epoch : snapEpoch;
+  var displayBh = ((epoch&&epoch.blockHeight)!==undefined) ? Number(epoch.blockHeight) : snapBh;
+  var metaInner = freshness + '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+(displayEpoch!==null?displayEpoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+' total) · block height <b>'+(displayBh!==null?Number(displayBh).toLocaleString():'?')+'</b> · SOL '+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
   document.getElementById('meta').innerHTML=metaInner;
     
   // Handle chart data safely

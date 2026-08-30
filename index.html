@@ -159,12 +159,12 @@ j('./data/snapshot.json').then(function(snap){
       epoch: (snap.sources.solana_rpc&&snap.sources.solana_rpc.epoch)?snap.sources.solana_rpc.epoch:0,
       slotIndex: 0,
       slotsInEpoch: 0,
-      blockHeight: (snap.sources.solana_rpc&&snap.sources.solana_rpc.blockHeight)?snap.sources.solana_rpc.blockHeight:0
+      blockHeight: (snap.sources.solana_rpc&&snap.sources.solana_rpc.block_height)?snap.sources.solana_rpc.block_height:0
     },
     samples: [
       {samplePeriodSecs:0, numTransactions:0, numNonVoteTransactions:0}
     ],
-    hist: (snap.sources.defillama_history&&snap.sources.defillama_history.daily)?snap.sources.defillama_history.daily.map(function(day){return {date:day[0], tvl:day[1]};}):[]
+    hist: (snap.sources.defillama_history&&snap.sources.defillama_history.days)?snap.sources.defillama_history.days.map(function(day){return {date:day[0], tvl:day[1]};}):(snap.sources.defillama_history&&snap.sources.defillama_history.daily?snap.sources.defillama_history.daily.map(function(day){return {date:day[0], tvl:day[1]};}):[])
   };
   
   var liveError = null;
@@ -229,7 +229,7 @@ function renderLiveSection(data, error, snap){
   document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
     '<div class="bar" title="epoch progress"><i style="width:'+epPct+'%"></i></div>');
     
-  var metaInner = '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+') total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL $'+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
+  var metaInner = '<span class="badge">● LIVE</span> rendered '+new Date().toUTCString()+' · epoch <b>'+((epoch&&epoch.epoch)!==undefined?epoch.epoch:'?')+'</b> ('+epPct+'%) · <b>'+nv.toLocaleString()+'</b> tx/s non-vote ('+tps.toLocaleString()+' total) · block height <b>'+((epoch&&epoch.blockHeight)!==undefined?Number(epoch.blockHeight).toLocaleString():'?')+'</b> · SOL '+((sol&&sol.current_price)!==undefined?fmt(sol.current_price):'—')+' <span class="'+((sol&&sol.price_change_percentage_24h>=0)?'up':'down')+'">'+pct(sol&&sol.price_change_percentage_24h)+' 24h</span>';
   document.getElementById('meta').innerHTML=metaInner;
     
   // Handle chart data safely

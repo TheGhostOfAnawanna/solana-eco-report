@@ -319,6 +319,76 @@ def main():
     with open(os.path.join(hist_dir, f"{stamp}.json"), "w") as f:
         json.dump(snap, f)
 
+    # ---- Trends & correlations (for sparklines + insight) ---------------------
+    # Build time series from history (most recent first)
+    hist_series = []  # each entry: {generated_utc, sol_price, tvl, tps_non_vote}
+    for s in reversed(prev):  # oldest to newest
+        try:
+            hist_series.append({
+                'generated_utc': s.get('generated_utc', ''),
+                'sol_price': s['sources'].get('coingecko_sol', {}).get('price_usd'),
+                'tvl': s['sources'].get('defillama_chains', {}).get('solana_tvl_usd'),
+                'tps_non_vote': s['sources'].get('solana_rpc', {}).get('tps_non_vote')
+            })
+        except (KeyError, TypeError):
+            continue
+    # Add current snapshot at end
+    hist_series.append({
+        'generated_utc': snap['generated_utc'],
+        'sol_price': snap['sources'].get('coingecko_sol', {}).get('price_usd'),
+        'tvl': snap['sources'].get('defillama_chains', {}).get('solana_tvl_usd'),
+        'tps_non_vote': snap['sources'].get('solana_rpc', {}).get('tps_non_vote')
+    })
+    # Filter out any None values (shouldn't happen but safe)
+    hist_series = [x for x in hist_series if all(v is not None for v in [x['sol_price'], x['tvl'], x['tps_non_vote']])]
+    
+    # Compute sparklines data (last 37 points or less)
+    def sparkline_vals(key, n=37):
+        vals = [x[key] for x in hist_series[-n:] if x[key] is not None]
+        if not vals:
+            return []
+        # Normalize to 0-100 for sparkline height
+        vmin, vmax = min(vals), max(vals)
+        if vmax == vmin:
+            return [50] * len(vals)  # flat line
+        return [round((v - vmin) * 100 / (vmax - vmin)) for v in vals]
+    
+    # Compute Pearson correlation between SOL price and TVL
+    def pearson_corr(x, y):
+        n = len(x)
+        if n < 2:
+            return None
+        sum_x = sum(x)
+        sum_y = sum(y)
+        sum_xy = sum(xi * yi for xi, yi in zip(x, y))
+        sum_x2 = sum(xi * xi for xi in x)
+        sum_y2 = sum(yi * yi for yi in y)
+        numerator = n * sum_xy - sum_x * sum_y
+        denom_x = (n * sum_x2 - sum_x * sum_x)
+        denom_y = (n * sum_y2 - sum_y * sum_y)
+        if denom_x <= 0 or denom_y <= 0:
+            return None
+        return numerator / ((denom_x * denom_y) ** 0.5)
+    
+    sol_prices = [x['sol_price'] for x in hist_series]
+    tvls = [x['tvl'] for x in hist_series]
+    tps_vals = [x['tps_non_vote'] for x in hist_series]
+    correlation = pearson_corr(sol_prices, tvls)
+    
+    # Store trends in snapshot
+    trends = {
+        'sol_price_sparkline': sparkline_vals('sol_price'),
+        'tvl_sparkline': sparkline_vals('tvl'),
+        'tps_sparkline': sparkline_vals('tps_non_vote'),
+        'sol_tvl_correlation': correlation,
+        'data_points': len(hist_series),
+        'date_range': {
+            'start': hist_series[0]['generated_utc'] if hist_series else None,
+            'end': hist_series[-1]['generated_utc'] if hist_series else None
+        }
+    }
+    snap['sources']['trends'] = trends
+
     # ---- Anomaly detection (needs history context) ----------------------------
     anomalies = detect_anomalies(snap, prev)
     snap["anomalies"] = anomalies
@@ -328,7 +398,9 @@ def main():
 
     write_markdown(snap)
     print(f"OK snapshot.json anomalies={len(anomalies)} "
-          f"snapshots_archived={len(os.listdir(hist_dir))}")
+          f"snapshots_archived={len(os.listdir(hist_dir))} "
+          f"trends_points={len(hist_series)} "
+          f"correlation={correlation:.3f if correlation is not None else 'None'}")
 
 def fmt_usd(n):
     return "${:,.0f}".format(n) if isinstance(n, (int, float)) else "n/a"

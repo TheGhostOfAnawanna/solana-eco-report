@@ -20,6 +20,7 @@ h2{font-size=1.05rem;color=var(--dim);text-transform:uppercase;letter-spacing:.0
 .card .v{font-size:1.15rem;font-weight:650;font-variant-numeric:tabular-nums;margin-top:.15rem}
 .card .s{color:var(--dim);font-size:.78rem;margin-top:.1rem}
 .up{color:var(--sol2)}.down{color:var(--alert)}
+.sparkline{display:inline-flex;gap:1px;height:8px;margin-top:4px;align-items:flex-end}.sparkline span{background:var(--sol2);width:3px;display:block;border-radius:2px}
 table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.9rem}
 th,td{padding:.45rem .7rem;text-align:left;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}th{color:var(--dim);font-weight:600;font-size:.78rem;text-transform:uppercase}
@@ -108,19 +109,25 @@ j('./data/snapshot.json').then(function(snap){
 
   var val=d.validators||{}, net=d.solana_rpc||{}, dx=d.defillama_dexs||{}, fx=d.defillama_fees||{},
         stb=d.defillama_stables||{}, dl=d.defillama_chains||{}, cg=d.coingecko_sol||{};
+  var trends = snap.sources&&snap.sources.trends||{};
+  var sol_spark = trends.sol_price_sparkline||[];
+  var tvl_spark = trends.tvl_sparkline||[];
+  var tps_spark = trends.tps_sparkline||[];
+  var correlation = trends.sol_tvl_correlation;
   document.getElementById('stats').innerHTML=[
-    ['SOL price', cg.price_usd?'$'+cg.price_usd.toLocaleString():'—', `24h ${pct(cg.change_24h_pct||0)}`, cg.change_24h_pct],
+    ['SOL price', cg.price_usd?'$'+cg.price_usd.toLocaleString():'—', `24h ${pct(cg.change_24h_pct||0)}`+'<div class="sparkline">'+sol_spark.map(function(v){return '<span style="height:'+v+'%"></span>';}).join('')+'</div>', cg.change_24h_pct],
     ['Market cap', cg.market_cap_usd?fmt(cg.market_cap_usd):'—', 'rank #'+(cg.rank??'—')],
-    ['Chain TVL', dl.solana_tvl_usd?fmt(dl.solana_tvl_usd):'—', 'rank #'+dl.solana_rank+' all chains'],
+    ['Chain TVL', dl.solana_tvl_usd?fmt(dl.solana_tvl_usd):'—', 'rank #'+dl.solana_rank+' all chains'+'<div class="sparkline">'+tvl_spark.map(function(v){return '<span style="height:'+v+'%"></span>';}).join('')+'</div>'],
     ['DEX volume 24h', dx.volume_24h_usd?fmt(dx.volume_24h_usd):'—', `1d ${pct(dx.change_1d_pct||0)} · 7d ${pct(dx.change_7d_pct||0)}`],
     ['Ecosystem fees 24h', fx.fees_24h_usd?fmt(fx.fees_24h_usd):'—', `30d ${fx.fees_30d_usd?fmt(fx.fees_30d_usd):'—'} (REV proxy)`],
     ['Stablecoins (USD)', stb.solana_usd_pegged_stables?fmt(stb.solana_usd_pegged_stables):'—', 'on Solana'],
-    ['Non-vote TPS', net.tps_non_vote!=null?Math.round(net.tps_non_vote).toLocaleString():'—', `${Math.round(net.tps_total||0).toLocaleString()} incl. votes`],
+    ['Non-vote TPS', net.tps_non_vote!=null?Math.round(net.tps_non_vote).toLocaleString():'—', `${Math.round(net.tps_total||0).toLocaleString()} incl. votes`+'<div class="sparkline">'+tps_spark.map(function(v){return '<span style="height:'+v+'%"></span>';}).join('')+'</div>'],
     ['Slot time', net.slot_time_ms?net.slot_time_ms+' ms':'—', 'avg recent samples'],
     ['Validators', val.active+' active', val.delinquent+' delinquent ('+val.delinquency_pct+'%)'],
     ['Circulating supply', net.supply_circulating_sol?Number(net.supply_circulating_sol).toLocaleString()+' SOL':'—', 'of '+Number(net.supply_total_sol||0).toLocaleString()+' total'],
     ['Priority fee mean', (net.priority_fee_mean_micro_lamports!=null&&net.priority_fee_mean_micro_lamports>0)?net.priority_fee_mean_micro_lamports.toLocaleString()+' µL':'<1 µL', 'base fee fixed 5000 lamports'],
     ['Snapshot', (snap.generated_utc||'').slice(0,16)+'Z', 'committed by pipeline'],
+    ['SOL-TVL correlation', correlation!==null?correlation.toFixed(3):'—', correlation!==null&&Math.abs(correlation)>0.5?'strong':'weak'+(correlation!==null?' (n='+trends.data_points+')':'')]
   ].map(function(kvss){
     var k=kvss[0], v=kvss[1], s2=kvss[2];
     return '<div class="card"><div class=k>'+k+'</div><div class=v>'+v+'</div><div class=s>'+(s2||'')+'</div></div>';

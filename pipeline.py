@@ -393,14 +393,44 @@ def main():
     anomalies = detect_anomalies(snap, prev)
     snap["anomalies"] = anomalies
 
+    # ---- Anomaly history (rolling 14d, deduped by day) --------------------
+    hist_path = os.path.join(OUT_DIR, "anomaly_history.json")
+    today = snap["generated_utc"][:10]
+    try:
+        with open(hist_path) as f:
+            hist_log = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        hist_log = []
+    if anomalies:
+        hist_log.append({"date": today, "generated_utc": snap["generated_utc"], "anomalies": anomalies})
+    else:
+        if not any(h["date"] == today for h in hist_log):
+            hist_log.append({"date": today, "generated_utc": snap["generated_utc"], "anomalies": []})
+    cutoff = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=14)).date().isoformat()
+    hist_log = [h for h in hist_log if h["date"] >= cutoff]
+    seen = {}
+    for h in sorted(hist_log, key=lambda x: x["generated_utc"]):
+        seen[h["date"]] = h
+    hist_log = sorted(seen.values(), key=lambda x: x["date"], reverse=True)
+    with open(hist_path, "w") as f:
+        json.dump(hist_log, f, indent=2)
+    snap["anomaly_history_summary"] = {
+        "days_kept": len(hist_log),
+        "alerts_14d": sum(1 for h in hist_log for a in h["anomalies"] if a["severity"] == "alert"),
+        "warnings_14d": sum(1 for h in hist_log for a in h["anomalies"] if a["severity"] == "warning"),
+        "info_14d": sum(1 for h in hist_log for a in h["anomalies"] if a["severity"] == "info"),
+        "clean_days_14d": sum(1 for h in hist_log if not h["anomalies"]),
+    }
+
     with open(os.path.join(OUT_DIR, "snapshot.json"), "w") as f:
         json.dump(snap, f, indent=2)
 
     write_markdown(snap)
+    corr_str = f"{correlation:.3f}" if correlation is not None else "None"
     print(f"OK snapshot.json anomalies={len(anomalies)} "
           f"snapshots_archived={len(os.listdir(hist_dir))} "
           f"trends_points={len(hist_series)} "
-          f"correlation={correlation:.3f if correlation is not None else 'None'}")
+          f"correlation={corr_str}")
 
 def fmt_usd(n):
     return "${:,.0f}".format(n) if isinstance(n, (int, float)) else "n/a"

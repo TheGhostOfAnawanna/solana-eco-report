@@ -45,6 +45,7 @@ footer a{color:var(--dim)}
 <h1>🟣 <span class="grad">Solana Ecosystem Dashboard</span></h1>
 <div id=meta>Loading…</div>
 <div id=anoms></div>
+<details id=anomhist style=margin:.5rem 0 1rem><summary style=cursor:pointer;color:var(--muted);font-size:.9rem>📜 Anomaly history (last 14 days)</summary><div id=anomhist-body style=margin-top:.5rem></div></details>
 <div id=stats class=grid></div>
 
 <h2>Chain TVL · 90 days</h2>
@@ -106,6 +107,28 @@ j('./data/snapshot.json').then(function(snap){
   }else{
     A.innerHTML='<div class="anom info" style="border-left-color:var(--sol2)">✅ No anomalies flagged in latest automated scan.</div>';
   }
+
+  // anomaly history (rolling 14d)
+  fetch('./data/anomaly_history.json', {headers:{accept:'application/json'}}).then(function(r){return r.json()}).then(function(hist){
+    var body=document.getElementById('anomhist-body');
+    var sum=snap.anomaly_history_summary||{};
+    if(!Array.isArray(hist)||!hist.length){
+      body.innerHTML='<div style="color:var(--faint);font-size:.85rem">No history yet — builds as pipeline runs.</div>';
+      return;
+    }
+    var head='<div style="margin-bottom:.5rem;font-size:.85rem;color:var(--dim)">14d: '+'<span style="color:var(--alert)">'+(sum.alerts_14d||0)+' alerts</span> · '+'<span style="color:var(--warn)">'+(sum.warnings_14d||0)+' warnings</span> · '+'<span style="color:#38bdf8">'+(sum.info_14d||0)+' info</span> · '+'<span style="color:var(--sol2)">'+(sum.clean_days_14d||0)+' clean days</span> ('+hist.length+' tracked)</div>';
+    var rows=hist.map(function(day){
+      if(!day.anomalies||!day.anomalies.length){
+        return '<div style="padding:.3rem 0;border-bottom:1px solid var(--line);font-size:.85rem"><span style="color:var(--sol2)">✓</span> <b>'+day.date+'</b> <span style="color:var(--faint)">— no anomalies</span></div>';
+      }
+      var items=day.anomalies.map(function(a){
+        var c = a.severity==='alert'?'var(--alert)':a.severity==='warning'?'var(--warn)':'#38bdf8';
+        return '<div style="padding:.25rem 0 .25rem 1rem;border-left:3px solid '+c+';margin:.2rem 0;font-size:.85rem"><span style="color:'+c+'">●</span> <b>'+a.metric+'</b> <span style="color:var(--faint)">['+a.severity+']</span> — '+a.detail+'</div>';
+      }).join('');
+      return '<div style="padding:.4rem 0;border-bottom:1px solid var(--line)"><b>'+day.date+'</b> <span style="color:var(--faint);font-size:.8rem">'+day.anomalies.length+' flagged</span>'+items+'</div>';
+    }).join('');
+    body.innerHTML=head+rows;
+  }).catch(function(){ /* silent — history is nice-to-have */ });
 
   var val=d.validators||{}, net=d.solana_rpc||{}, dx=d.defillama_dexs||{}, fx=d.defillama_fees||{},
         stb=d.defillama_stables||{}, dl=d.defillama_chains||{}, cg=d.coingecko_sol||{};

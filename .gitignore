@@ -1,0 +1,9 @@
+# Budnick working files (Doc-internal; not part of the public submission)
+superteam-bounty/FIXES-AND-UPGRADES.md
+superteam-bounty/RUBRIC.md
+superteam-bounty/_archive/
+
+# Editor / OS clutter
+.DS_Store
+*.swp
+*.tmp

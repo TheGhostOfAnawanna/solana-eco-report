@@ -192,10 +192,32 @@ def main():
     top10 = sorted(all_stakes, reverse=True)[:10]
     top20 = sorted(all_stakes, reverse=True)[:20]
 
+    # Nakamoto coefficient (min validators to reach >33% of stake).
+    sorted_stakes_desc = sorted([st for st, _, _ in all_stakes], reverse=True)
+    target = total_stake / 3
+    nak = 0
+    acc = 0
+    for st in sorted_stakes_desc:
+        acc += st
+        nak += 1
+        if acc > target:
+            break
+    nakamoto_coeff = nak if total_stake else None
+
     supply = rpc("getSupply", [{"excludeNonCirculatingAccountsList": True}])["value"]
     health = rpc("getHealth")
     prio = rpc("getRecentPrioritizationFees")
     fees_lamports = sorted(x["prioritizationFee"] for x in prio)
+
+    # Priority-fee stats. Most blocks have 0 priority bids; surface useful
+    # numbers anyway (median + 95th pct) and clearly say "base fee only" when
+    # the entire sample is 0 (no fabricated numbers).
+    n_fees = len(fees_lamports)
+    nonzero_fees = [f for f in fees_lamports if f > 0]
+    median_idx = n_fees // 2
+    fee_mean = (sum(fees_lamports) / n_fees) if n_fees else 0
+    fee_median = fees_lamports[median_idx] if n_fees else 0
+    fee_p95 = fees_lamports[min(n_fees - 1, int(n_fees * 0.95))] if n_fees else 0
 
     snap["sources"]["solana_rpc"] = {
         "epoch": epoch["epoch"],
@@ -209,8 +231,12 @@ def main():
         "health": health,
         "supply_circulating_sol": round(supply["circulating"] / lam),
         "supply_total_sol": round(supply["total"] / lam),
-        "priority_fee_mean_micro_lamports": round(sum(fees_lamports) / max(len(fees_lamports), 1)),
+        "priority_fee_mean_micro_lamports": round(fee_mean),
+        "priority_fee_median_micro_lamports": round(fee_median),
+        "priority_fee_p95_micro_lamports": round(fee_p95),
         "priority_fee_min_micro_lamports": fees_lamports[0] if fees_lamports else None,
+        "priority_fee_nonzero_count": len(nonzero_fees),
+        "priority_fee_sample_size": n_fees,
     }
     snap["sources"]["validators"] = {
         "active": len(active_v), "delinquent": len(delinq_v),
@@ -221,6 +247,7 @@ def main():
         "top10_by_stake": [{"vote_account": vp[:10] + "…", "stake_msol": round(st / lam / 1e6, 2),
                             "commission_pct": cm} for st, cm, vp in top10],
         "median_commission_pct": sorted(cm for _, cm, _ in all_stakes)[len(all_stakes) // 2],
+        "nakamoto_coefficient": nakamoto_coeff,
     }
     time.sleep(2)
 
@@ -463,12 +490,12 @@ def write_markdown(snap):
               f"- **Lifetime transactions:** {net['total_transactions']:,}",
               f"- **RPC health:** `{net.get('health')}`",
               f"- **Supply:** {net.get('supply_circulating_sol'):,} SOL circulating / {net.get('supply_total_sol'):,} total",
-              f"- **Mean priority fee:** {net.get('priority_fee_mean_micro_lamports'):,} micro-lamports (base fee fixed at 5,000 lamports/signature)",
+              f"- **Priority fee median / 95th:** {net.get('priority_fee_median_micro_lamports'):,} / {net.get('priority_fee_p95_micro_lamports'):,} micro-lamports/CU (base fee fixed at 5,000 lamports/signature)",
               "",
               "## Validators", "",
               f"- **Active:** {val['active']} · **Delinquent:** {val['delinquent']} ({val['delinquency_pct']}%)",
               f"- **Total stake:** {val['total_stake_sol']:,} SOL · median commission {val['median_commission_pct']}%",
-              f"- **Stake concentration:** top 10 hold {val['top10_stake_share_pct']}% · top 20 hold {val['top20_stake_share_pct']}%",
+              f"- **Stake concentration:** top 10 hold {val['top10_stake_share_pct']}% · top 20 hold {val['top20_stake_share_pct']}% · Nakamoto coefficient {val.get('nakamoto_coefficient','-')}",
               "",
               "| # | Vote account | Stake (M SOL) | Commission |", "|---|--------------|----------------|------------|"]
     for i, v in enumerate(val["top10_by_stake"], 1):

@@ -94,8 +94,10 @@ Headline stats fetch live on each page load; tables/news render from the latest 
 <script>
 const fmt=function(n){return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0})};
 const pct=function(n){return (n>0?'+':'')+Number(n).toFixed(1)+'%'};
-const j=function(u){return fetch(u,{headers:{accept:'application/json'}}).then(function(r){return r.json()})};
-const rpc=function(m,p){return fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(function(r){return r.json()}).then(function(x){return x.result})};
+// All remote fetches abort after ~10s so a hung API can never freeze the page:
+// the render path falls back to committed snapshot data instead.
+const j=function(u,ms){ms=ms||10000;var c=new AbortController();setTimeout(function(){c.abort()},ms);return fetch(u,{signal:c.signal,headers:{accept:'application/json'}}).then(function(r){return r.json()})};
+const rpc=function(m,p,ms){ms=ms||9000;var c=new AbortController();setTimeout(function(){c.abort()},ms);return fetch('https://api.mainnet-beta.solana.com',{method:'POST',signal:c.signal,headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p||[]})}).then(function(r){return r.json()}).then(function(x){return x.result})};
 
 // ---- snapshot-driven sections (same-origin, committed every 6h by pipeline) ----
 j('./data/snapshot.json').then(function(snap){

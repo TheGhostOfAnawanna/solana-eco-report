@@ -349,7 +349,7 @@ def main():
     # ---- Trends & correlations (for sparklines + insight) ---------------------
     # Build time series from history (most recent first)
     hist_series = []  # each entry: {generated_utc, sol_price, tvl, tps_non_vote}
-    for s in reversed(prev):  # oldest to newest
+    for s in prev:  # filenames sort oldest→newest; keep chronological order
         try:
             hist_series.append({
                 'generated_utc': s.get('generated_utc', ''),

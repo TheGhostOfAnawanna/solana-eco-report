@@ -1,17 +1,17 @@
 [
   {
     "date": "2026-09-01",
-    "generated_utc": "2026-09-01T09:17:01.336041+00:00",
+    "generated_utc": "2026-09-01T15:17:01.720698+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",
         "severity": "warning",
-        "detail": "14/694 validators delinquent (2.02% > 1%)."
+        "detail": "16/694 validators delinquent (2.31% > 1%)."
       },
       {
         "metric": "DEX volume 24h",
         "severity": "info",
-        "detail": "DEX volume changed +27.4% in 24h."
+        "detail": "DEX volume changed +29.6% in 24h."
       }
     ]
   },

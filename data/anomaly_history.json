@@ -1,12 +1,17 @@
 [
   {
     "date": "2026-09-02",
-    "generated_utc": "2026-09-02T09:17:01.597010+00:00",
+    "generated_utc": "2026-09-02T15:17:01.594479+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",
+        "severity": "alert",
+        "detail": "19/695 validators delinquent (2.73% > 1%)."
+      },
+      {
+        "metric": "chain TVL 24h",
         "severity": "warning",
-        "detail": "16/694 validators delinquent (2.31% > 1%)."
+        "detail": "TVL moved -6.1% day-over-day ($5,984,518,806 \u2192 $5,622,278,520)."
       }
     ]
   },

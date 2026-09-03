@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-09-03",
-    "generated_utc": "2026-09-03T03:17:02.315336+00:00",
+    "generated_utc": "2026-09-03T09:17:01.250809+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",

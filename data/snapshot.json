@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-06T15:17:01.399895+00:00",
+  "generated_utc": "2026-09-06T21:17:01.332466+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
@@ -129,25 +129,25 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 105.31,
-      "market_cap_usd": 61616129022,
+      "price_usd": 106.02,
+      "market_cap_usd": 62065037848,
       "rank": 7,
-      "change_24h_pct": 2.46491,
-      "change_7d_pct": -1.2,
-      "change_30d_pct": 42.7
+      "change_24h_pct": 2.4985,
+      "change_7d_pct": -0.1,
+      "change_30d_pct": 42.9
     },
     "solana_rpc": {
       "epoch": 1029,
-      "epoch_progress_pct": 68.67,
-      "block_height": 422868994,
-      "absolute_slot": 444824645,
-      "total_transactions": 545717480738,
-      "tps_total": 4170.0,
-      "tps_non_vote": 2053.0,
-      "slot_time_ms": 318,
+      "epoch_progress_pct": 84.44,
+      "block_height": 422937100,
+      "absolute_slot": 444892787,
+      "total_transactions": 545801791700,
+      "tps_total": 3802.0,
+      "tps_non_vote": 1668.0,
+      "slot_time_ms": 315,
       "health": "ok",
-      "supply_circulating_sol": 585445057,
-      "supply_total_sol": 633548933,
+      "supply_circulating_sol": 585444835,
+      "supply_total_sol": 633548711,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_median_micro_lamports": 0,
       "priority_fee_p95_micro_lamports": 0,
@@ -156,9 +156,9 @@
       "priority_fee_sample_size": 150
     },
     "validators": {
-      "active": 676,
-      "delinquent": 17,
-      "delinquency_pct": 2.45,
+      "active": 675,
+      "delinquent": 18,
+      "delinquency_pct": 2.6,
       "total_stake_sol": 439248820,
       "top10_stake_share_pct": 24.3,
       "top20_stake_share_pct": 35.5,
@@ -609,7 +609,7 @@
       "change_1d_pct": 0.44
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16664669361
+      "solana_usd_pegged_stables": 16670329693
     },
     "news": [
       {
@@ -673,16 +673,15 @@
       }
     ],
     "self_observed_trend": {
-      "since": "2026-08-26T03:17Z",
-      "snapshots_tracked": 63,
+      "since": "2026-08-26T03:20Z",
+      "snapshots_tracked": 62,
       "tvl_then_usd": 5595035006,
       "tvl_change_pct": 5.89,
-      "price_then_usd": 97.12,
-      "price_change_pct": 8.43
+      "price_then_usd": 97.05,
+      "price_change_pct": 9.24
     },
     "trends": {
       "sol_price_sparkline": [
-        99,
         100,
         69,
         65,
@@ -718,10 +717,10 @@
         61,
         74,
         90,
-        84
+        84,
+        93
       ],
       "tvl_sparkline": [
-        94,
         91,
         89,
         79,
@@ -757,10 +756,10 @@
         84,
         79,
         84,
+        84,
         84
       ],
       "tps_sparkline": [
-        56,
         40,
         46,
         46,
@@ -796,27 +795,28 @@
         8,
         19,
         30,
-        55
+        55,
+        35
       ],
-      "sol_tvl_correlation": 0.9077864157239136,
-      "data_points": 63,
+      "sol_tvl_correlation": 0.8969374966096227,
+      "data_points": 62,
       "date_range": {
-        "start": "2026-08-26T03:17:01.398083+00:00",
-        "end": "2026-09-06T15:17:01.399895+00:00"
+        "start": "2026-08-26T03:20:13.486440+00:00",
+        "end": "2026-09-06T21:17:01.332466+00:00"
       }
     }
   },
   "anomalies": [
     {
       "metric": "validator delinquency",
-      "severity": "warning",
-      "detail": "17/693 validators delinquent (2.45% > 1%)."
+      "severity": "alert",
+      "detail": "18/693 validators delinquent (2.60% > 1%)."
     }
   ],
   "anomaly_history_summary": {
     "days_kept": 8,
-    "alerts_14d": 5,
-    "warnings_14d": 5,
+    "alerts_14d": 6,
+    "warnings_14d": 4,
     "info_14d": 2,
     "clean_days_14d": 0
   }

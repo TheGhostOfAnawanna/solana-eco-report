@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-07T03:17:01.964803+00:00",
+  "generated_utc": "2026-09-07T09:17:01.668936+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
@@ -129,25 +129,25 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 105.41,
-      "market_cap_usd": 61774459551,
+      "price_usd": 104.98,
+      "market_cap_usd": 61549904473,
       "rank": 7,
-      "change_24h_pct": 0.84069,
-      "change_7d_pct": 4.3,
-      "change_30d_pct": 43.3
+      "change_24h_pct": -0.77278,
+      "change_7d_pct": 1.7,
+      "change_30d_pct": 40.0
     },
     "solana_rpc": {
       "epoch": 1030,
-      "epoch_progress_pct": 0.2,
-      "block_height": 423005155,
-      "absolute_slot": 444960873,
-      "total_transactions": 545884736246,
-      "tps_total": 4552.0,
-      "tps_non_vote": 2469.0,
-      "slot_time_ms": 322,
+      "epoch_progress_pct": 15.99,
+      "block_height": 423073327,
+      "absolute_slot": 445029057,
+      "total_transactions": 545962520045,
+      "tps_total": 3416.0,
+      "tps_non_vote": 1300.0,
+      "slot_time_ms": 318,
       "health": "ok",
-      "supply_circulating_sol": 586166550,
-      "supply_total_sol": 633643696,
+      "supply_circulating_sol": 586166212,
+      "supply_total_sol": 633643491,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_median_micro_lamports": 0,
       "priority_fee_p95_micro_lamports": 0,
@@ -601,9 +601,46 @@
       "change_1d_pct": 0.44
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16690466458
+      "solana_usd_pegged_stables": 16683184810
     },
-    "news": [],
+    "news": [
+      {
+        "title": "Fomo overtakes Pump.fun in daily revenue on Solana",
+        "link": "https://cointelegraph.com/news/fomo-pumpfun-revenue-app-solana?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Mon, 07 Sep 2026 07:45:39 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Bitcoin\u2019s new quantum defenses, 18.9M SOL cancelled: Hodler\u2019s Digest",
+        "link": "https://cointelegraph.com/magazine/bitcoins-new-quantum-defenses-189m-sol-cancelled-hodlers-digest?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Sun, 30 Aug 2026 23:36:16 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana validators approve proposal to accelerate SOL disinflation",
+        "link": "https://cointelegraph.com/news/solana-validators-approve-proposal-to-accelerate-sol-disinflation?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 28 Aug 2026 19:53:12 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Charles Schwab adda Solana, Avalanche and Chainlink to nascent crypto platform",
+        "link": "https://cointelegraph.com/news/charles-schwab-to-add-solana-avalanche-and-chainlink-to-crypto-platform?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Thu, 27 Aug 2026 16:13:10 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana transactions hit record 4.2B as SOL rallies 40%",
+        "link": "https://cointelegraph.com/news/solana-record-transactions-rwa-sol-price?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Tue, 25 Aug 2026 18:08:58 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
+      {
+        "title": "Solana cuts blockchain slot time to 350 milliseconds",
+        "link": "https://cointelegraph.com/news/solana-cuts-blockchain-slot-time-350-milliseconds?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Fri, 21 Aug 2026 13:45:13 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      }
+    ],
     "upcoming_upgrades": [
       {
         "name": "Alpenglow",
@@ -628,16 +665,15 @@
       }
     ],
     "self_observed_trend": {
-      "since": "2026-08-26T03:20Z",
-      "snapshots_tracked": 63,
+      "since": "2026-08-26T03:32Z",
+      "snapshots_tracked": 62,
       "tvl_then_usd": 5595035006,
       "tvl_change_pct": 5.89,
-      "price_then_usd": 97.05,
-      "price_change_pct": 8.61
+      "price_then_usd": 97.07,
+      "price_change_pct": 8.15
     },
     "trends": {
       "sol_price_sparkline": [
-        74,
         70,
         70,
         46,
@@ -673,10 +709,10 @@
         96,
         91,
         100,
-        92
+        92,
+        86
       ],
       "tvl_sparkline": [
-        89,
         79,
         79,
         76,
@@ -712,10 +748,10 @@
         84,
         84,
         84,
+        84,
         84
       ],
       "tps_sparkline": [
-        46,
         46,
         46,
         92,
@@ -751,13 +787,14 @@
         30,
         55,
         35,
-        76
+        76,
+        16
       ],
-      "sol_tvl_correlation": 0.8980079650430811,
-      "data_points": 63,
+      "sol_tvl_correlation": 0.8825671683019592,
+      "data_points": 62,
       "date_range": {
-        "start": "2026-08-26T03:20:13.486440+00:00",
-        "end": "2026-09-07T03:17:01.964803+00:00"
+        "start": "2026-08-26T03:32:06.583234+00:00",
+        "end": "2026-09-07T09:17:01.668936+00:00"
       }
     }
   },

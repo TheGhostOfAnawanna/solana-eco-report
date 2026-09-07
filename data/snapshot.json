@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-07T09:17:01.668936+00:00",
+  "generated_utc": "2026-09-07T15:17:02.038230+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
@@ -129,25 +129,25 @@
       ]
     },
     "coingecko_sol": {
-      "price_usd": 104.98,
-      "market_cap_usd": 61549904473,
+      "price_usd": 104.26,
+      "market_cap_usd": 61086221318,
       "rank": 7,
-      "change_24h_pct": -0.77278,
-      "change_7d_pct": 1.7,
-      "change_30d_pct": 40.0
+      "change_24h_pct": -1.19536,
+      "change_7d_pct": 2.3,
+      "change_30d_pct": 38.7
     },
     "solana_rpc": {
       "epoch": 1030,
-      "epoch_progress_pct": 15.99,
-      "block_height": 423073327,
-      "absolute_slot": 445029057,
-      "total_transactions": 545962520045,
-      "tps_total": 3416.0,
-      "tps_non_vote": 1300.0,
-      "slot_time_ms": 318,
+      "epoch_progress_pct": 31.77,
+      "block_height": 423141465,
+      "absolute_slot": 445097231,
+      "total_transactions": 546041231170,
+      "tps_total": 4392.0,
+      "tps_non_vote": 2278.0,
+      "slot_time_ms": 317,
       "health": "ok",
-      "supply_circulating_sol": 586166212,
-      "supply_total_sol": 633643491,
+      "supply_circulating_sol": 586166003,
+      "supply_total_sol": 633643282,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_median_micro_lamports": 0,
       "priority_fee_p95_micro_lamports": 0,
@@ -601,7 +601,7 @@
       "change_1d_pct": 0.44
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16683184810
+      "solana_usd_pegged_stables": 16666767077
     },
     "news": [
       {
@@ -666,15 +666,14 @@
     ],
     "self_observed_trend": {
       "since": "2026-08-26T03:32Z",
-      "snapshots_tracked": 62,
+      "snapshots_tracked": 63,
       "tvl_then_usd": 5595035006,
       "tvl_change_pct": 5.89,
       "price_then_usd": 97.07,
-      "price_change_pct": 8.15
+      "price_change_pct": 7.41
     },
     "trends": {
       "sol_price_sparkline": [
-        70,
         70,
         46,
         46,
@@ -710,10 +709,10 @@
         91,
         100,
         92,
-        86
+        86,
+        77
       ],
       "tvl_sparkline": [
-        79,
         79,
         76,
         76,
@@ -749,10 +748,10 @@
         84,
         84,
         84,
+        84,
         84
       ],
       "tps_sparkline": [
-        46,
         46,
         92,
         96,
@@ -788,13 +787,14 @@
         55,
         35,
         76,
-        16
+        16,
+        66
       ],
-      "sol_tvl_correlation": 0.8825671683019592,
-      "data_points": 62,
+      "sol_tvl_correlation": 0.8821685201591611,
+      "data_points": 63,
       "date_range": {
         "start": "2026-08-26T03:32:06.583234+00:00",
-        "end": "2026-09-07T09:17:01.668936+00:00"
+        "end": "2026-09-07T15:17:02.038230+00:00"
       }
     }
   },

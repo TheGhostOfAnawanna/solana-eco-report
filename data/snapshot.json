@@ -1,50 +1,50 @@
 {
-  "generated_utc": "2026-09-08T09:17:01.609531+00:00",
+  "generated_utc": "2026-09-08T15:17:01.202187+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5869138159.901023,
+      "solana_tvl_usd": 5858003246.190801,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 49310652250.342
+          "tvl_usd": 49098958090.63089
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5869138159.901023
+          "tvl_usd": 5858003246.190801
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5669056213.219351
+          "tvl_usd": 5706091011.231921
         },
         {
           "chain": "Base",
-          "tvl_usd": 5592001434.685034
+          "tvl_usd": 5566664257.526819
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5453371672.255723
+          "tvl_usd": 5259608649.058885
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4234803151.7928715
+          "tvl_usd": 4217148830.410062
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1460106072.3011346
+          "tvl_usd": 1442431960.5156224
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1399714349.7661474
+          "tvl_usd": 1391150674.1617985
         },
         {
           "chain": "Monad",
-          "tvl_usd": 969702042.5791605
+          "tvl_usd": 973521436.9922227
         },
         {
           "chain": "Robinhood Chain",
-          "tvl_usd": 902882861.4912426
+          "tvl_usd": 900488792.354507
         }
       ]
     },
@@ -53,32 +53,32 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1569926230.045866,
+          "tvl_usd": 1569354049.5075967,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1328481289.8304908,
+          "tvl_usd": 1326786402.5456724,
           "category": "Lending"
         },
         {
           "name": "Raydium AMM",
-          "tvl_usd": 1128197897.4047987,
+          "tvl_usd": 1134195349.1499333,
           "category": "Dexs"
         },
         {
-          "name": "Jupiter Lend",
-          "tvl_usd": 1085522817.351006,
-          "category": "Lending"
-        },
-        {
           "name": "Binance Staked SOL",
-          "tvl_usd": 1069496175.8097441,
+          "tvl_usd": 1069999927.2460358,
           "category": "Liquid Staking"
         },
         {
+          "name": "Jupiter Lend",
+          "tvl_usd": 1067064644.7132564,
+          "category": "Lending"
+        },
+        {
           "name": "Jito Liquid Staking",
-          "tvl_usd": 1055500709.8688087,
+          "tvl_usd": 1054937606.592388,
           "category": "Liquid Staking"
         },
         {
@@ -88,66 +88,66 @@
         },
         {
           "name": "Jupiter Perpetual Exchange",
-          "tvl_usd": 748355934.973267,
+          "tvl_usd": 746000040.3154831,
           "category": "Derivatives"
         },
         {
           "name": "Jupiter Staked SOL",
-          "tvl_usd": 532923557.65208733,
+          "tvl_usd": 531192099.46257246,
           "category": "Liquid Staking"
         },
         {
           "name": "xStocks",
-          "tvl_usd": 441645941.77538335,
+          "tvl_usd": 441707214.58920044,
           "category": "RWA"
         },
         {
           "name": "Marinade Native",
-          "tvl_usd": 405834973.5072671,
+          "tvl_usd": 400759793.4045476,
           "category": "Staking Pool"
         },
         {
           "name": "Sentora Curator",
-          "tvl_usd": 387079535.6748579,
+          "tvl_usd": 387431056.6291807,
           "category": "Risk Curators"
         },
         {
           "name": "PumpSwap",
-          "tvl_usd": 334051522.0086341,
+          "tvl_usd": 337936746.8156515,
           "category": "Dexs"
         },
         {
           "name": "OnRe",
-          "tvl_usd": 302842230.26131356,
+          "tvl_usd": 303593024.17111963,
           "category": "RWA"
         },
         {
           "name": "Drift Staked SOL",
-          "tvl_usd": 289450583.9015191,
+          "tvl_usd": 288509709.0245882,
           "category": "Liquid Staking"
         }
       ]
     },
     "coingecko_sol": {
-      "price_usd": 103.14,
-      "market_cap_usd": 60461450534,
+      "price_usd": 103.59,
+      "market_cap_usd": 60716531668,
       "rank": 7,
-      "change_24h_pct": -1.74227,
-      "change_7d_pct": -0.1,
+      "change_24h_pct": -0.55888,
+      "change_7d_pct": 1.4,
       "change_30d_pct": 35.0
     },
     "solana_rpc": {
       "epoch": 1030,
-      "epoch_progress_pct": 79.18,
-      "block_height": 423346183,
-      "absolute_slot": 445302071,
-      "total_transactions": 546286716043,
-      "tps_total": 3588.0,
-      "tps_non_vote": 1463.0,
-      "slot_time_ms": 315,
+      "epoch_progress_pct": 94.98,
+      "block_height": 423414289,
+      "absolute_slot": 445370319,
+      "total_transactions": 546369945285,
+      "tps_total": 4463.0,
+      "tps_non_vote": 2349.0,
+      "slot_time_ms": 318,
       "health": "ok",
-      "supply_circulating_sol": 586165353,
-      "supply_total_sol": 633642632,
+      "supply_circulating_sol": 586165134,
+      "supply_total_sol": 633642413,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_median_micro_lamports": 0,
       "priority_fee_p95_micro_lamports": 0,
@@ -577,12 +577,12 @@
         ],
         [
           1788825600,
-          5869017766
+          5857966226
         ]
       ],
       "tvl_90d_ago_usd": 4450273497,
-      "tvl_now_usd": 5869017766,
-      "change_90d_pct": 31.9,
+      "tvl_now_usd": 5857966226,
+      "change_90d_pct": 31.6,
       "daily": [
         [
           1788739200,
@@ -590,26 +590,26 @@
         ],
         [
           1788825600,
-          5869017766
+          5857966226
         ]
       ]
     },
     "defillama_dexs": {
-      "volume_24h_usd": 2872025884.66,
-      "volume_7d_usd": 15452508370.52,
-      "volume_30d_usd": 67561282236.110016,
-      "all_time_usd": 3090017839719.87,
-      "change_1d_pct": -1.12,
-      "change_7d_pct": 14.81,
+      "volume_24h_usd": 2720639104.66,
+      "volume_7d_usd": 16291920059.52,
+      "volume_30d_usd": 68400693925.110016,
+      "all_time_usd": 3091013338114.87,
+      "change_1d_pct": -6.33,
+      "change_7d_pct": 8.76,
       "change_30d_pct": null
     },
     "defillama_fees": {
-      "fees_24h_usd": 15999657.209999995,
-      "fees_30d_usd": 352426938.6099995,
-      "change_1d_pct": 9.17
+      "fees_24h_usd": 15653179.209999995,
+      "fees_30d_usd": 354239021.6099995,
+      "change_1d_pct": 6.81
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16573699095
+      "solana_usd_pegged_stables": 16515803011
     },
     "news": [
       {
@@ -631,9 +631,9 @@
         "feed": "Cointelegraph (Solana tag)"
       },
       {
-        "title": "Charles Schwab adda Solana, Avalanche and Chainlink to nascent crypto platform",
+        "title": "Charles Schwab adds Solana, Avalanche and Chainlink to nascent crypto platform",
         "link": "https://cointelegraph.com/news/charles-schwab-to-add-solana-avalanche-and-chainlink-to-crypto-platform?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
-        "published": "Thu, 27 Aug 2026 16:13:10 +0000",
+        "published": "Thu, 27 Aug 2026 16:15:00 +0000",
         "feed": "Cointelegraph (Solana tag)"
       },
       {
@@ -674,15 +674,14 @@
     ],
     "self_observed_trend": {
       "since": "2026-08-27T03:17Z",
-      "snapshots_tracked": 62,
+      "snapshots_tracked": 63,
       "tvl_then_usd": 5760866943,
-      "tvl_change_pct": 1.88,
+      "tvl_change_pct": 1.69,
       "price_then_usd": 101.03,
-      "price_change_pct": 2.09
+      "price_change_pct": 2.53
     },
     "trends": {
       "sol_price_sparkline": [
-        45,
         43,
         42,
         43,
@@ -718,10 +717,10 @@
         77,
         73,
         61,
-        62
+        62,
+        68
       ],
       "tvl_sparkline": [
-        76,
         52,
         45,
         45,
@@ -757,10 +756,10 @@
         84,
         80,
         84,
-        69
+        69,
+        66
       ],
       "tps_sparkline": [
-        90,
         75,
         67,
         50,
@@ -796,13 +795,14 @@
         66,
         45,
         37,
-        24
+        24,
+        70
       ],
-      "sol_tvl_correlation": 0.8019653322235648,
-      "data_points": 62,
+      "sol_tvl_correlation": 0.8019329618146139,
+      "data_points": 63,
       "date_range": {
         "start": "2026-08-27T03:17:02.033803+00:00",
-        "end": "2026-09-08T09:17:01.609531+00:00"
+        "end": "2026-09-08T15:17:01.202187+00:00"
       }
     }
   },

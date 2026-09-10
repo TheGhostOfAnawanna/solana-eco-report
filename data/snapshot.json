@@ -1,50 +1,50 @@
 {
-  "generated_utc": "2026-09-10T09:17:01.949705+00:00",
+  "generated_utc": "2026-09-10T15:17:01.604773+00:00",
   "generator": "pipeline.py v1.0 (stdlib-only, no API keys)",
   "sources": {
     "defillama_chains": {
-      "solana_tvl_usd": 5860404237.914326,
+      "solana_tvl_usd": 5813210360.792023,
       "solana_rank": 2,
       "top10_by_tvl": [
         {
           "chain": "Ethereum",
-          "tvl_usd": 49904812395.742325
+          "tvl_usd": 49566279248.2367
         },
         {
           "chain": "Solana",
-          "tvl_usd": 5860404237.914326
+          "tvl_usd": 5813210360.792023
         },
         {
           "chain": "BSC",
-          "tvl_usd": 5644366980.762612
+          "tvl_usd": 5592116077.284016
         },
         {
           "chain": "Base",
-          "tvl_usd": 5640977316.832824
+          "tvl_usd": 5587848938.90833
         },
         {
           "chain": "Tron",
-          "tvl_usd": 5179433721.611187
+          "tvl_usd": 5045303196.216833
         },
         {
           "chain": "Bitcoin",
-          "tvl_usd": 4243448182.274786
+          "tvl_usd": 4169948703.454279
         },
         {
           "chain": "Hyperliquid L1",
-          "tvl_usd": 1437983224.5662835
+          "tvl_usd": 1415620873.4944224
         },
         {
           "chain": "Arbitrum",
-          "tvl_usd": 1408084015.7743697
+          "tvl_usd": 1398776974.634995
         },
         {
           "chain": "Monad",
-          "tvl_usd": 1014171712.9619815
+          "tvl_usd": 1013570930.7053235
         },
         {
           "chain": "Robinhood Chain",
-          "tvl_usd": 897519027.7395654
+          "tvl_usd": 894245968.0285304
         }
       ]
     },
@@ -53,32 +53,32 @@
       "top15": [
         {
           "name": "Sanctum Validator LSTs",
-          "tvl_usd": 1560166449.636906,
+          "tvl_usd": 1515600519.485942,
           "category": "Liquid Staking"
         },
         {
           "name": "Kamino Lend",
-          "tvl_usd": 1337249646.1638246,
+          "tvl_usd": 1320429133.7860875,
           "category": "Lending"
         },
         {
           "name": "Raydium AMM",
-          "tvl_usd": 1130229185.3831117,
+          "tvl_usd": 1105474900.6186955,
           "category": "Dexs"
         },
         {
           "name": "Jupiter Lend",
-          "tvl_usd": 1080209256.07148,
+          "tvl_usd": 1066769270.3821927,
           "category": "Lending"
         },
         {
           "name": "Binance Staked SOL",
-          "tvl_usd": 1051043815.0228964,
+          "tvl_usd": 1032544216.2870138,
           "category": "Liquid Staking"
         },
         {
           "name": "Jito Liquid Staking",
-          "tvl_usd": 1038550342.2671561,
+          "tvl_usd": 1024021622.1545873,
           "category": "Liquid Staking"
         },
         {
@@ -88,66 +88,66 @@
         },
         {
           "name": "Jupiter Perpetual Exchange",
-          "tvl_usd": 747379854.9215956,
+          "tvl_usd": 736223228.1231208,
           "category": "Derivatives"
         },
         {
           "name": "Jupiter Staked SOL",
-          "tvl_usd": 522927350.79237044,
+          "tvl_usd": 513749474.9179072,
           "category": "Liquid Staking"
         },
         {
-          "name": "xStocks",
-          "tvl_usd": 437783318.9435214,
-          "category": "RWA"
-        },
-        {
-          "name": "Marinade Native",
-          "tvl_usd": 390478720.56545323,
-          "category": "Staking Pool"
-        },
-        {
           "name": "Sentora Curator",
-          "tvl_usd": 387221606.16380936,
+          "tvl_usd": 388623704.76324904,
           "category": "Risk Curators"
         },
         {
+          "name": "Marinade Native",
+          "tvl_usd": 381319768.83014077,
+          "category": "Staking Pool"
+        },
+        {
           "name": "PumpSwap",
-          "tvl_usd": 331244186.1474707,
+          "tvl_usd": 328696736.32627904,
           "category": "Dexs"
         },
         {
           "name": "OnRe",
-          "tvl_usd": 307294152.621947,
+          "tvl_usd": 308114636.80832094,
           "category": "RWA"
         },
         {
           "name": "Drift Staked SOL",
-          "tvl_usd": 284511471.1496076,
+          "tvl_usd": 280615848.00011754,
           "category": "Liquid Staking"
+        },
+        {
+          "name": "Orca DEX",
+          "tvl_usd": 255848015.03145033,
+          "category": "Dexs"
         }
       ]
     },
     "coingecko_sol": {
-      "price_usd": 101.18,
-      "market_cap_usd": 59340953256,
+      "price_usd": 99.99,
+      "market_cap_usd": 58642514292,
       "rank": 7,
-      "change_24h_pct": -3.14216,
-      "change_7d_pct": 0.8,
-      "change_30d_pct": 33.7
+      "change_24h_pct": -2.6994,
+      "change_7d_pct": -1.2,
+      "change_30d_pct": 31.7
     },
     "solana_rpc": {
       "epoch": 1032,
-      "epoch_progress_pct": 5.49,
-      "block_height": 423891093,
-      "absolute_slot": 445847706,
-      "total_transactions": 546991028114,
-      "tps_total": 3746.0,
-      "tps_non_vote": 1593.0,
-      "slot_time_ms": 313,
+      "epoch_progress_pct": 21.3,
+      "block_height": 423959352,
+      "absolute_slot": 445915997,
+      "total_transactions": 547078626957,
+      "tps_total": 4004.0,
+      "tps_non_vote": 1881.0,
+      "slot_time_ms": 316,
       "health": "ok",
-      "supply_circulating_sol": 586335904,
-      "supply_total_sol": 633831038,
+      "supply_circulating_sol": 586335534,
+      "supply_total_sol": 633830806,
       "priority_fee_mean_micro_lamports": 0,
       "priority_fee_median_micro_lamports": 0,
       "priority_fee_p95_micro_lamports": 0,
@@ -156,9 +156,9 @@
       "priority_fee_sample_size": 150
     },
     "validators": {
-      "active": 678,
-      "delinquent": 10,
-      "delinquency_pct": 1.45,
+      "active": 676,
+      "delinquent": 13,
+      "delinquency_pct": 1.89,
       "total_stake_sol": 439188213,
       "top10_stake_share_pct": 24.2,
       "top20_stake_share_pct": 35.5,
@@ -577,12 +577,12 @@
         ],
         [
           1788998400,
-          5860376349
+          5769760916
         ]
       ],
       "tvl_90d_ago_usd": 4712412919,
-      "tvl_now_usd": 5860376349,
-      "change_90d_pct": 24.4,
+      "tvl_now_usd": 5769760916,
+      "change_90d_pct": 22.4,
       "daily": [
         [
           1788912000,
@@ -590,28 +590,34 @@
         ],
         [
           1788998400,
-          5860376349
+          5769760916
         ]
       ]
     },
     "defillama_dexs": {
-      "volume_24h_usd": 2556732104.63,
-      "volume_7d_usd": 16126102807.68,
-      "volume_30d_usd": 69784427636.91002,
-      "all_time_usd": 3095712627975.5503,
-      "change_1d_pct": -5.68,
-      "change_7d_pct": 11.68,
+      "volume_24h_usd": 3000435429.63,
+      "volume_7d_usd": 17542118391.679996,
+      "volume_30d_usd": 71200443220.91002,
+      "all_time_usd": 3097374786834.5503,
+      "change_1d_pct": 10.69,
+      "change_7d_pct": 31.06,
       "change_30d_pct": null
     },
     "defillama_fees": {
-      "fees_24h_usd": 15570962.170000002,
-      "fees_30d_usd": 364813042.3899996,
-      "change_1d_pct": -5.98
+      "fees_24h_usd": 15435517.170000002,
+      "fees_30d_usd": 367006623.3899996,
+      "change_1d_pct": -7.59
     },
     "defillama_stables": {
-      "solana_usd_pegged_stables": 16497752824
+      "solana_usd_pegged_stables": 16478615322
     },
     "news": [
+      {
+        "title": "Solana sees record 263K tokens issued in a single day",
+        "link": "https://cointelegraph.com/news/solana-record-263k-tokens-issued?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
+        "published": "Thu, 10 Sep 2026 13:00:00 +0000",
+        "feed": "Cointelegraph (Solana tag)"
+      },
       {
         "title": "Fomo overtakes Pump.fun in daily revenue on Solana",
         "link": "https://cointelegraph.com/news/fomo-pumpfun-revenue-app-solana?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
@@ -641,12 +647,6 @@
         "link": "https://cointelegraph.com/news/solana-record-transactions-rwa-sol-price?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
         "published": "Tue, 25 Aug 2026 18:08:58 +0000",
         "feed": "Cointelegraph (Solana tag)"
-      },
-      {
-        "title": "Solana cuts blockchain slot time to 350 milliseconds",
-        "link": "https://cointelegraph.com/news/solana-cuts-blockchain-slot-time-350-milliseconds?utm_source=rss_feed&utm_medium=rss_tag_solana&utm_campaign=rss_partner_inbound",
-        "published": "Fri, 21 Aug 2026 13:45:13 +0000",
-        "feed": "Cointelegraph (Solana tag)"
       }
     ],
     "upcoming_upgrades": [
@@ -674,15 +674,14 @@
     ],
     "self_observed_trend": {
       "since": "2026-08-29T03:17Z",
-      "snapshots_tracked": 62,
+      "snapshots_tracked": 63,
       "tvl_then_usd": 5871696994,
-      "tvl_change_pct": -0.19,
+      "tvl_change_pct": -1.0,
       "price_then_usd": 103.95,
-      "price_change_pct": -2.66
+      "price_change_pct": -3.81
     },
     "trends": {
       "sol_price_sparkline": [
-        46,
         39,
         10,
         24,
@@ -718,10 +717,10 @@
         58,
         52,
         45,
-        36
+        36,
+        20
       ],
       "tvl_sparkline": [
-        61,
         44,
         26,
         19,
@@ -757,10 +756,10 @@
         98,
         88,
         64,
-        66
+        66,
+        53
       ],
       "tps_sparkline": [
-        35,
         100,
         86,
         34,
@@ -796,13 +795,14 @@
         83,
         60,
         55,
-        31
+        31,
+        46
       ],
-      "sol_tvl_correlation": 0.7831680487285235,
-      "data_points": 62,
+      "sol_tvl_correlation": 0.7817090739782397,
+      "data_points": 63,
       "date_range": {
         "start": "2026-08-29T03:17:01.469933+00:00",
-        "end": "2026-09-10T09:17:01.949705+00:00"
+        "end": "2026-09-10T15:17:01.604773+00:00"
       }
     }
   },
@@ -810,7 +810,7 @@
     {
       "metric": "validator delinquency",
       "severity": "warning",
-      "detail": "10/688 validators delinquent (1.45% > 1%)."
+      "detail": "13/689 validators delinquent (1.89% > 1%)."
     }
   ],
   "anomaly_history_summary": {

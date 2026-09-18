@@ -1,22 +1,22 @@
 [
   {
     "date": "2026-09-18",
-    "generated_utc": "2026-09-18T15:17:01.412289+00:00",
+    "generated_utc": "2026-09-18T21:17:01.743925+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",
         "severity": "warning",
-        "detail": "11/688 validators delinquent (1.60% > 1%)."
+        "detail": "12/688 validators delinquent (1.74% > 1%)."
       },
       {
         "metric": "SOL price 24h",
-        "severity": "warning",
-        "detail": "SOL moved +9.6% in 24h (threshold \u00b18%)."
+        "severity": "alert",
+        "detail": "SOL moved +12.4% in 24h (threshold \u00b18%)."
       },
       {
         "metric": "chain TVL 24h",
         "severity": "warning",
-        "detail": "TVL moved +5.5% day-over-day ($5,782,044,409 \u2192 $6,097,419,504)."
+        "detail": "TVL moved +8.4% day-over-day ($5,782,044,410 \u2192 $6,270,419,808)."
       }
     ]
   },

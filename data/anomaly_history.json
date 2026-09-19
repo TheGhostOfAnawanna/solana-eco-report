@@ -1,22 +1,22 @@
 [
   {
     "date": "2026-09-19",
-    "generated_utc": "2026-09-19T09:17:01.679736+00:00",
+    "generated_utc": "2026-09-19T15:17:01.152189+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",
         "severity": "warning",
-        "detail": "10/688 validators delinquent (1.45% > 1%)."
+        "detail": "13/690 validators delinquent (1.88% > 1%)."
       },
       {
         "metric": "chain TVL 24h",
         "severity": "warning",
-        "detail": "TVL moved +6.0% day-over-day ($5,897,083,884 \u2192 $6,249,283,433)."
+        "detail": "TVL moved +5.9% day-over-day ($5,897,083,883 \u2192 $6,246,694,889)."
       },
       {
         "metric": "DEX volume 24h",
         "severity": "info",
-        "detail": "DEX volume changed +25.7% in 24h."
+        "detail": "DEX volume changed +36.4% in 24h."
       }
     ]
   },

@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-09-19",
+    "generated_utc": "2026-09-19T03:17:02.085630+00:00",
+    "anomalies": [
+      {
+        "metric": "validator delinquency",
+        "severity": "warning",
+        "detail": "11/688 validators delinquent (1.60% > 1%)."
+      },
+      {
+        "metric": "SOL price 24h",
+        "severity": "warning",
+        "detail": "SOL moved +9.5% in 24h (threshold \u00b18%)."
+      },
+      {
+        "metric": "DEX volume 24h",
+        "severity": "info",
+        "detail": "DEX volume changed +25.7% in 24h."
+      }
+    ]
+  },
+  {
     "date": "2026-09-18",
     "generated_utc": "2026-09-18T21:17:01.743925+00:00",
     "anomalies": [
@@ -175,17 +196,6 @@
         "metric": "validator delinquency",
         "severity": "alert",
         "detail": "18/693 validators delinquent (2.60% > 1%)."
-      }
-    ]
-  },
-  {
-    "date": "2026-09-04",
-    "generated_utc": "2026-09-04T21:17:02.024475+00:00",
-    "anomalies": [
-      {
-        "metric": "validator delinquency",
-        "severity": "alert",
-        "detail": "18/695 validators delinquent (2.59% > 1%)."
       }
     ]
   }

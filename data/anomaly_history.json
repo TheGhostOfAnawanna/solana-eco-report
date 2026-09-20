@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-20",
+    "generated_utc": "2026-09-20T03:17:01.083124+00:00",
+    "anomalies": [
+      {
+        "metric": "validator delinquency",
+        "severity": "warning",
+        "detail": "12/690 validators delinquent (1.74% > 1%)."
+      }
+    ]
+  },
+  {
     "date": "2026-09-19",
     "generated_utc": "2026-09-19T21:17:01.825401+00:00",
     "anomalies": [
@@ -180,17 +191,6 @@
   {
     "date": "2026-09-06",
     "generated_utc": "2026-09-06T21:17:01.332466+00:00",
-    "anomalies": [
-      {
-        "metric": "validator delinquency",
-        "severity": "alert",
-        "detail": "18/693 validators delinquent (2.60% > 1%)."
-      }
-    ]
-  },
-  {
-    "date": "2026-09-05",
-    "generated_utc": "2026-09-05T21:17:01.101930+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",

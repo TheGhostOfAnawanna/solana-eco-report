@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-21",
+    "generated_utc": "2026-09-21T03:17:01.107001+00:00",
+    "anomalies": [
+      {
+        "metric": "validator delinquency",
+        "severity": "warning",
+        "detail": "14/690 validators delinquent (2.03% > 1%)."
+      }
+    ]
+  },
+  {
     "date": "2026-09-20",
     "generated_utc": "2026-09-20T21:17:01.556595+00:00",
     "anomalies": [
@@ -185,17 +196,6 @@
         "metric": "DEX volume 24h",
         "severity": "info",
         "detail": "DEX volume changed +55.8% in 24h."
-      }
-    ]
-  },
-  {
-    "date": "2026-09-06",
-    "generated_utc": "2026-09-06T21:17:01.332466+00:00",
-    "anomalies": [
-      {
-        "metric": "validator delinquency",
-        "severity": "alert",
-        "detail": "18/693 validators delinquent (2.60% > 1%)."
       }
     ]
   }

@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-09-21",
-    "generated_utc": "2026-09-21T15:17:02.008552+00:00",
+    "generated_utc": "2026-09-21T21:17:01.206844+00:00",
     "anomalies": [
       {
         "metric": "validator delinquency",
@@ -11,7 +11,7 @@
       {
         "metric": "SOL price 24h",
         "severity": "warning",
-        "detail": "SOL moved +9.4% in 24h (threshold \u00b18%)."
+        "detail": "SOL moved +8.3% in 24h (threshold \u00b18%)."
       }
     ]
   },
